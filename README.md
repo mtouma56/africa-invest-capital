@@ -43,3 +43,5 @@ Application web complète pour Africa Invest Capital, une société financière 
 ```bash
 git clone https://github.com/votre-username/africa-invest-capital.git
 cd africa-invest-capital
+npm install
+```
