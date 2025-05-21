@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
+  ],
+  "env": {
+    "VITE_SUPABASE_URL": "https://dipkshwoohcybwhekvhk.supabase.co",
+    "VITE_SUPABASE_ANON_KEY": "votre_cle_anon_supabase"
+  }
+}
