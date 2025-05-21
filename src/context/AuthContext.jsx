@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
           .insert([
             {
               id: authData.user.id,         // Lien avec l'utilisateur auth
-              full_name: fullName,          // Champ à jour
+              full_name: fullName,          // Stocke le nom complet de l'utilisateur
               role: 'client',               // Par défaut, ou adapte si besoin
             }
           ]);
