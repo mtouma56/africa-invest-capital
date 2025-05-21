@@ -53,7 +53,7 @@ const LoanDetails = () => {
         
         // Récupérer les détails du prêt
         const { data: loanData, error: loanError } = await supabase
-          .from('loans')
+        .from('loan_requests')
           .select('*')
           .eq('id', loanId)
           .eq('user_id', user.id)

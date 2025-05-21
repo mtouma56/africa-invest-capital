@@ -145,13 +145,13 @@ const NewLoanRequest = () => {
     try {
       // Enregistrer la demande de prêt
       const { data, error } = await supabase
-        .from('loans')
+      .from('loan_requests')
         .insert([
           {
             user_id: user.id,
             loan_type: loanType,
             amount: parseFloat(amount),
-            duration: parseInt(duration),
+            duration_months: parseInt(duration),
             purpose,
             status: 'pending',
             id_document_url: idDocument?.url,

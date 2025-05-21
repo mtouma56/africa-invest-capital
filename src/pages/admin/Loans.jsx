@@ -66,7 +66,7 @@ const AdminLoans = () => {
         
         // Construire la requête de base
         let query = supabase
-          .from('loans')
+        .from('loan_requests')
           .select(`
             *,
             profiles:user_id (
@@ -120,7 +120,7 @@ const AdminLoans = () => {
     setProcessingLoanId(id);
     
     supabase
-      .from('loans')
+    .from('loan_requests')
       .update({ status: newStatus })
       .eq('id', id)
       .then(({ error }) => {

@@ -37,7 +37,7 @@ const Dashboard = () => {
       try {
         // Récupération des prêts
         const { data: loansData, error: loansError } = await supabase
-          .from('loans')
+        .from('loan_requests')
           .select('*')
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });

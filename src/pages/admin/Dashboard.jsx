@@ -57,7 +57,7 @@ const AdminDashboard = () => {
         ] = await Promise.all([
           // Nombre total de prêts
           supabase
-            .from('loans')
+          .from('loan_requests')
             .select('id', { count: 'exact', head: true }),
           
           // Nombre total de clients
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
           
           // Nombre de prêts en attente
           supabase
-            .from('loans')
+          .from('loan_requests')
             .select('id', { count: 'exact', head: true })
             .eq('status', 'pending'),
           
@@ -80,13 +80,13 @@ const AdminDashboard = () => {
           
           // Montant total des prêts approuvés
           supabase
-            .from('loans')
+          .from('loan_requests')
             .select('amount')
             .eq('status', 'approved'),
           
           // Prêts récents
           supabase
-            .from('loans')
+          .from('loan_requests')
             .select(`
               *,
               profiles:user_id (
