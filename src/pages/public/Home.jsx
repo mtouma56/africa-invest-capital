@@ -29,15 +29,15 @@ export default function Home() {
         </div>
         {/* Mini-stats */}
         <div className="flex flex-col sm:flex-row gap-6 justify-center mt-4">
-          <div className="bg-[#232323] rounded-xl px-6 py-5 shadow-lg hover:scale-105 hover:shadow-[0_0_15px_#FFD70066] transition-transform duration-300">
+        <div className="bg-gris-dark rounded-premium px-6 py-5 shadow-premium hover:scale-105 hover:shadow-[0_0_15px_#C8B06366] transition-transform duration-300">
             <span className="text-or text-2xl font-bold block">+1000</span>
             <span className="text-or-light text-base">Clients accompagnés</span>
           </div>
-          <div className="bg-[#232323] rounded-xl px-6 py-5 shadow-lg hover:scale-105 hover:shadow-[0_0_15px_#FFD70066] transition-transform duration-300">
+          <div className="bg-gris-dark rounded-premium px-6 py-5 shadow-premium hover:scale-105 hover:shadow-[0_0_15px_#C8B06366] transition-transform duration-300">
             <span className="text-or text-2xl font-bold block">2 500 000 000 FCFA</span>
             <span className="text-or-light text-base">Crédits octroyés</span>
           </div>
-          <div className="bg-[#232323] rounded-xl px-6 py-5 shadow-lg hover:scale-105 hover:shadow-[0_0_15px_#FFD70066] transition-transform duration-300">
+          <div className="bg-gris-dark rounded-premium px-6 py-5 shadow-premium hover:scale-105 hover:shadow-[0_0_15px_#C8B06366] transition-transform duration-300">
             <span className="text-or text-2xl font-bold block">4 pays</span>
             <span className="text-or-light text-base">Zone d’intervention</span>
           </div>
