@@ -1,22 +1,19 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { supabase } from '../../config/supabaseClient';
+import Input from '../../components/common/Input';
 
 const Contact = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [subject, setSubject] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!name || !email || !message) {
-      toast.error('Veuillez remplir tous les champs obligatoires');
-      return;
-    }
+  const onSubmit = async ({ name, email, phone, subject, message }) => {
     
     setLoading(true);
     
@@ -41,11 +38,7 @@ const Contact = () => {
       toast.success('Votre message a été envoyé avec succès');
       
       // Réinitialiser le formulaire
-      setName('');
-      setEmail('');
-      setPhone('');
-      setSubject('');
-      setMessage('');
+      reset();
       
     } catch (error) {
       toast.error('Une erreur s\'est produite. Veuillez réessayer.');
@@ -70,83 +63,55 @@ const Contact = () => {
       {/* Formulaire de contact premium */}
       <div className="py-8 px-4 sm:px-6 lg:px-8 flex flex-col gap-16">
         <div className="bg-[#232323] p-8 rounded-xl shadow-lg max-w-2xl mx-auto w-full">
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-y-6">
+            <Input
+              label="Nom complet *"
+              placeholder="Votre nom complet"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('name', { required: 'Le nom est obligatoire' })}
+              error={errors.name?.message}
+            />
+            <Input
+              label="E-mail *"
+              type="email"
+              placeholder="Votre adresse e-mail"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('email', {
+                required: 'Adresse e-mail obligatoire',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Adresse e-mail invalide'
+                }
+              })}
+              error={errors.email?.message}
+            />
+            <Input
+              label="Téléphone"
+              type="text"
+              placeholder="Votre numéro de téléphone"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('phone')}
+              error={errors.phone?.message}
+            />
             <div>
-              <label htmlFor="name" className="block text-or font-bold mb-2">
-                Nom complet *
-              </label>
-              <input
+              <Input
+                label="Sujet"
                 type="text"
-                name="name"
-                id="name"
-                autoComplete="name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Votre nom complet"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-or font-bold mb-2">
-                E-mail *
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Votre adresse e-mail"
-              />
-            </div>
-            <div>
-              <label htmlFor="phone" className="block text-or font-bold mb-2">
-                Téléphone
-              </label>
-              <input
-                type="text"
-                name="phone"
-                id="phone"
-                autoComplete="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Votre numéro de téléphone"
-              />
-            </div>
-            <div>
-              <label htmlFor="subject" className="block text-or font-bold mb-2">
-                Sujet
-              </label>
-              <input
-                type="text"
-                name="subject"
-                id="subject"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
                 placeholder="Sujet du message"
+                className="bg-[#232323] text-or-light border-or placeholder-or-light"
+                {...register('subject')}
+                error={errors.subject?.message}
               />
             </div>
-            <div>
-              <label htmlFor="message" className="block text-or font-bold mb-2">
-                Message *
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                required
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Votre message"
-              />
-            </div>
+            <Input
+              as="textarea"
+              label="Message *"
+              rows={4}
+              placeholder="Votre message"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('message', { required: 'Le message est obligatoire' })}
+              error={errors.message?.message}
+            />
             <div>
               <button
                 type="submit"

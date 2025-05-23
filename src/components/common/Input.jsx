@@ -1,7 +1,8 @@
 import { forwardRef } from 'react';
 
-const Input = forwardRef(({
+const Input = forwardRef(({ 
   type = 'text',
+  as = 'input',
   label,
   error,
   className = '',
@@ -12,6 +13,8 @@ const Input = forwardRef(({
   ...props
 }, ref) => {
   const uniqueId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+
+  const Element = as === 'textarea' ? 'textarea' : 'input';
 
   return (
     <div className={`mb-4 ${containerClassName}`}>
@@ -26,9 +29,9 @@ const Input = forwardRef(({
             {icon}
           </div>
         )}
-        <input
+        <Element
           ref={ref}
-          type={type}
+          type={as === 'textarea' ? undefined : type}
           id={uniqueId}
           disabled={disabled}
           aria-invalid={error ? 'true' : 'false'}
