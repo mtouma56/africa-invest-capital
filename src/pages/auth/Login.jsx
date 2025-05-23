@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
     
     if (!email || !password) {
-      toast.error('Veuillez remplir tous les champs');
+      showError('Veuillez remplir tous les champs');
       return;
     }
     
@@ -24,13 +24,13 @@ const Login = () => {
       const { error } = await login(email, password);
       
       if (error) {
-        toast.error(error.message || 'Échec de la connexion');
+        showError(error.message || 'Échec de la connexion');
       } else {
-        toast.success('Connexion réussie !');
+        showSuccess('Connexion réussie !');
         // navigate('/client/dashboard'); // À activer si tu veux rediriger automatiquement après login
       }
     } catch (error) {
-      toast.error('Une erreur s\'est produite');
+      showError('Une erreur s\'est produite');
       console.error(error);
     } finally {
       setLoading(false);

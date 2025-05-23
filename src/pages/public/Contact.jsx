@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 import { supabase } from '../../config/supabaseClient';
 
 const Contact = () => {
@@ -14,7 +14,7 @@ const Contact = () => {
     e.preventDefault();
     
     if (!name || !email || !message) {
-      toast.error('Veuillez remplir tous les champs obligatoires');
+      showError('Veuillez remplir tous les champs obligatoires');
       return;
     }
     
@@ -38,7 +38,7 @@ const Contact = () => {
       
       if (error) throw error;
       
-      toast.success('Votre message a été envoyé avec succès');
+      showSuccess('Votre message a été envoyé avec succès');
       
       // Réinitialiser le formulaire
       setName('');
@@ -48,7 +48,7 @@ const Contact = () => {
       setMessage('');
       
     } catch (error) {
-      toast.error('Une erreur s\'est produite. Veuillez réessayer.');
+      showError("Une erreur s'est produite. Veuillez réessayer.");
       console.error('Erreur lors de l\'envoi du message:', error);
     } finally {
       setLoading(false);

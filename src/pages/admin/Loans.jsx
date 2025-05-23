@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { supabase } from '../../config/supabaseClient';
 import { useAuth } from '../../hooks/useAuth';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
+import Loader from '../../components/common/Loader';
+import EmptyState from '../../components/common/EmptyState';
 
 // Importation directe des icônes
 import ClockIcon from '@heroicons/react/24/outline/ClockIcon';
@@ -105,7 +107,7 @@ const AdminLoans = () => {
         
       } catch (error) {
         console.error('Erreur lors du chargement des prêts:', error);
-        toast.error('Impossible de charger la liste des prêts');
+        showError('Impossible de charger la liste des prêts');
       } finally {
         setLoading(false);
       }
@@ -125,7 +127,7 @@ const AdminLoans = () => {
       .eq('id', id)
       .then(({ error }) => {
         if (error) {
-          toast.error(`Erreur: ${error.message}`);
+          showError(`Erreur: ${error.message}`);
         } else {
           // Mise à jour du statut dans l'état local
           setLoans(loans.map(loan => 
@@ -151,7 +153,7 @@ const AdminLoans = () => {
               }
             });
           
-          toast.success(`Statut mis à jour avec succès: ${statusLabels[newStatus] || newStatus}`);
+          showSuccess(`Statut mis à jour avec succès: ${statusLabels[newStatus] || newStatus}`);
         }
       })
       .finally(() => {
@@ -283,7 +285,7 @@ const AdminLoans = () => {
       <div className="mt-6 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
         {loading ? (
           <div className="text-center py-12 bg-white">
-            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary mx-auto"></div>
+            <Loader />
             <p className="mt-3 text-sm text-gray-500">Chargement des demandes...</p>
           </div>
         ) : loans.length > 0 ? (
@@ -374,18 +376,20 @@ const AdminLoans = () => {
             </tbody>
           </table>
         ) : (
-          <div className="text-center py-12 bg-white">
-            <ExclamationCircleIcon className="h-10 w-10 text-gray-400 mx-auto" />
-            <p className="mt-2 text-sm text-gray-500">Aucune demande de prêt trouvée.</p>
-            {(statusFilter || typeFilter || searchQuery) && (
-              <button
-                onClick={resetFilters}
-                className="mt-4 text-primary hover:text-primary-dark text-sm font-medium"
-              >
-                Réinitialiser les filtres
-              </button>
-            )}
-          </div>
+          <EmptyState
+            message="Aucune demande de prêt trouvée."
+            icon={ExclamationCircleIcon}
+            action={
+              (statusFilter || typeFilter || searchQuery) && (
+                <button
+                  onClick={resetFilters}
+                  className="mt-4 text-primary hover:text-primary-dark text-sm font-medium"
+                >
+                  Réinitialiser les filtres
+                </button>
+              )
+            }
+          />
         )}
       </div>
 

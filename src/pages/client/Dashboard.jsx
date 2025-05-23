@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../config/supabaseClient';
+import Loader from '../../components/common/Loader';
+import EmptyState from '../../components/common/EmptyState';
 
 // Importation directe des icônes
 import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon';
@@ -70,7 +72,7 @@ const Dashboard = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        <Loader />
       </div>
     );
   }
@@ -183,12 +185,14 @@ const Dashboard = () => {
               </tbody>
             </table>
           ) : (
-            <div className="text-center py-6 bg-white">
-              <p className="text-gray-500">Vous n'avez encore aucune demande de prêt.</p>
-              <Link to="/client/demande-pret" className="mt-2 inline-flex text-primary hover:text-primary-dark">
-                Faire votre première demande
-              </Link>
-            </div>
+            <EmptyState
+              message="Vous n'avez encore aucune demande de prêt."
+              action={
+                <Link to="/client/demande-pret" className="mt-2 inline-flex text-primary hover:text-primary-dark">
+                  Faire votre première demande
+                </Link>
+              }
+            />
           )}
         </div>
         {loans.length > 5 && (
@@ -249,12 +253,14 @@ const Dashboard = () => {
               </tbody>
             </table>
           ) : (
-            <div className="text-center py-6 bg-white">
-              <p className="text-gray-500">Vous n'avez encore aucun document.</p>
-              <Link to="/client/documents" className="mt-2 inline-flex text-primary hover:text-primary-dark">
-                Ajouter vos documents
-              </Link>
-            </div>
+            <EmptyState
+              message="Vous n'avez encore aucun document."
+              action={
+                <Link to="/client/documents" className="mt-2 inline-flex text-primary hover:text-primary-dark">
+                  Ajouter vos documents
+                </Link>
+              }
+            />
           )}
         </div>
         {documents.length > 5 && (

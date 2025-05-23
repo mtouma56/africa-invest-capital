@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 
 const Register = () => {
   const [fullName, setFullName] = useState('');
@@ -17,11 +17,11 @@ const Register = () => {
     e.preventDefault();
 
     if (!fullName || !email || !password || !password2) {
-      toast.error('Veuillez remplir tous les champs');
+      showError('Veuillez remplir tous les champs');
       return;
     }
     if (password !== password2) {
-      toast.error('Les mots de passe ne correspondent pas');
+      showError('Les mots de passe ne correspondent pas');
       return;
     }
     setLoading(true);
@@ -30,13 +30,13 @@ const Register = () => {
       // ⚠️ L’ordre des arguments est IMPORTANT !
       const { error } = await register(fullName, email, password);
       if (error) {
-        toast.error(error.message || "Erreur lors de la création du compte");
+        showError(error.message || "Erreur lors de la création du compte");
       } else {
-        toast.success('Compte créé avec succès ! Vous pouvez vous connecter.');
+        showSuccess('Compte créé avec succès ! Vous pouvez vous connecter.');
         navigate('/auth/login');
       }
     } catch (error) {
-      toast.error("Une erreur s'est produite");
+      showError("Une erreur s'est produite");
       console.error(error);
     } finally {
       setLoading(false);

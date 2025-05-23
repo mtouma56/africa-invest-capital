@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 import { supabase } from '../../config/supabaseClient';
 import { useAuth } from '../../hooks/useAuth';
+import Loader from '../../components/common/Loader';
+import EmptyState from '../../components/common/EmptyState';
 
 const documentTypes = [
   { id: 'id', name: 'Pièce d\'identité' },
@@ -36,7 +38,7 @@ const Documents = () => {
         setDocuments(data || []);
       } catch (error) {
         console.error('Erreur lors du chargement des documents:', error);
-        toast.error('Impossible de charger vos documents');
+        showError('Impossible de charger vos documents');
       } finally {
         setLoading(false);
       }
@@ -57,17 +59,17 @@ const Documents = () => {
     e.preventDefault();
     
     if (!documentName.trim()) {
-      toast.error('Veuillez entrer un nom pour le document');
+      showError('Veuillez entrer un nom pour le document');
       return;
     }
     
     if (!documentType) {
-      toast.error('Veuillez sélectionner un type de document');
+      showError('Veuillez sélectionner un type de document');
       return;
     }
     
     if (!file) {
-      toast.error('Veuillez sélectionner un fichier');
+      showError('Veuillez sélectionner un fichier');
       return;
     }
     
@@ -109,7 +111,7 @@ const Documents = () => {
       
       if (insertError) throw insertError;
       
-      toast.success('Document téléchargé avec succès');
+      showSuccess('Document téléchargé avec succès');
       
       // Réinitialiser le formulaire
       setDocumentName('');
@@ -129,7 +131,7 @@ const Documents = () => {
       
     } catch (error) {
       console.error('Erreur lors du téléchargement:', error);
-      toast.error(`Erreur lors du téléchargement: ${error.message}`);
+      showError(`Erreur lors du téléchargement: ${error.message}`);
     } finally {
       setUploading(false);
     }
@@ -156,10 +158,10 @@ const Documents = () => {
       // Mettre à jour la liste des documents
       setDocuments(documents.filter(doc => doc.id !== id));
       
-      toast.success('Document supprimé avec succès');
+      showSuccess('Document supprimé avec succès');
     } catch (error) {
       console.error('Erreur lors de la suppression:', error);
-      toast.error(`Erreur lors de la suppression: ${error.message}`);
+      showError(`Erreur lors de la suppression: ${error.message}`);
     }
   };
 
@@ -260,7 +262,7 @@ const Documents = () => {
         <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
           {loading ? (
             <div className="text-center py-6 bg-white">
-              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary mx-auto"></div>
+              <Loader size="small" />
               <p className="mt-2 text-sm text-gray-500">Chargement des documents...</p>
             </div>
           ) : documents.length > 0 ? (
@@ -317,9 +319,7 @@ const Documents = () => {
               </tbody>
             </table>
           ) : (
-            <div className="text-center py-6 bg-white">
-              <p className="text-gray-500">Vous n'avez encore aucun document.</p>
-            </div>
+            <EmptyState message="Vous n'avez encore aucun document." />
           )}
         </div>
       </div>
