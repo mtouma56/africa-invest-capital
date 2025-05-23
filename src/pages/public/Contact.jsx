@@ -70,7 +70,7 @@ const Contact = () => {
       {/* Formulaire de contact premium */}
       <div className="py-8 px-4 sm:px-6 lg:px-8 flex flex-col gap-16">
         <div className="bg-[#232323] p-8 rounded-xl shadow-lg max-w-2xl mx-auto w-full">
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6" noValidate>
             <div>
               <label htmlFor="name" className="block text-or font-bold mb-2">
                 Nom complet *
@@ -112,11 +112,13 @@ const Contact = () => {
                 name="phone"
                 id="phone"
                 autoComplete="tel"
+                aria-describedby="phone-desc"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
                 placeholder="Votre numéro de téléphone"
               />
+              <p id="phone-desc" className="text-sm text-or-light mt-1">Optionnel, format international recommandé.</p>
             </div>
             <div>
               <label htmlFor="subject" className="block text-or font-bold mb-2">
@@ -141,11 +143,13 @@ const Contact = () => {
                 name="message"
                 rows={4}
                 required
+                aria-describedby="message-desc"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
                 placeholder="Votre message"
               />
+              <p id="message-desc" className="text-sm text-or-light mt-1">Décrivez votre demande de façon précise.</p>
             </div>
             <div>
               <button

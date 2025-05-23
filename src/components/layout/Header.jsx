@@ -115,6 +115,8 @@ const Header = ({ isAdmin, toggleSidebar, user }) => {
             <button
               type="button"
               className="text-or"
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Ouvrir le menu</span>
@@ -124,7 +126,7 @@ const Header = ({ isAdmin, toggleSidebar, user }) => {
         </div>
         {/* Menu mobile */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-0 inset-x-0 z-20 bg-noir shadow-2xl">
+          <div id="mobile-menu" className="md:hidden absolute top-0 inset-x-0 z-20 bg-noir shadow-2xl">
             <div className="px-4 pt-4 pb-4 flex flex-col">
               <div className="flex justify-between items-center border-b border-or pb-3">
                 <Link to="/" className="flex items-center">
