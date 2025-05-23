@@ -1,27 +1,21 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { showSuccess, showError } from '../../utils/toast';
 import { supabase } from '../../config/supabaseClient';
+import Input from '../../components/common/Input';
 
 const Contact = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [subject, setSubject] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!name || !email || !message) {
-      showError('Veuillez remplir tous les champs obligatoires');
-      return;
-    }
-    
+  const onSubmit = async ({ name, email, phone, subject, message }) => {
     setLoading(true);
-    
     try {
-      // Enregistrement du message dans Supabase
       const { error } = await supabase
         .from('contact_messages')
         .insert([
@@ -35,18 +29,11 @@ const Contact = () => {
             created_at: new Date()
           }
         ]);
-      
       if (error) throw error;
-      
+
       showSuccess('Votre message a été envoyé avec succès');
-      
-      // Réinitialiser le formulaire
-      setName('');
-      setEmail('');
-      setPhone('');
-      setSubject('');
-      setMessage('');
-      
+      reset();
+
     } catch (error) {
       showError("Une erreur s'est produite. Veuillez réessayer.");
       console.error('Erreur lors de l\'envoi du message:', error);
@@ -70,83 +57,52 @@ const Contact = () => {
       {/* Formulaire de contact premium */}
       <div className="py-8 px-4 sm:px-6 lg:px-8 flex flex-col gap-16">
         <div className="bg-[#232323] p-8 rounded-xl shadow-lg max-w-2xl mx-auto w-full">
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-y-6">
-            <div>
-              <label htmlFor="name" className="block text-or font-bold mb-2">
-                Nom complet *
-              </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                autoComplete="name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Votre nom complet"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-or font-bold mb-2">
-                E-mail *
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Votre adresse e-mail"
-              />
-            </div>
-            <div>
-              <label htmlFor="phone" className="block text-or font-bold mb-2">
-                Téléphone
-              </label>
-              <input
-                type="text"
-                name="phone"
-                id="phone"
-                autoComplete="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Votre numéro de téléphone"
-              />
-            </div>
-            <div>
-              <label htmlFor="subject" className="block text-or font-bold mb-2">
-                Sujet
-              </label>
-              <input
-                type="text"
-                name="subject"
-                id="subject"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Sujet du message"
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-or font-bold mb-2">
-                Message *
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                required
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="py-3 px-4 block w-full bg-[#232323] text-or-light border border-or rounded-md focus:ring-2 focus:ring-or placeholder-or-light transition"
-                placeholder="Votre message"
-              />
-            </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-y-6">
+            <Input
+              label="Nom complet *"
+              placeholder="Votre nom complet"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('name', { required: 'Le nom est obligatoire' })}
+              error={errors.name?.message}
+            />
+            <Input
+              label="E-mail *"
+              type="email"
+              placeholder="Votre adresse e-mail"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('email', {
+                required: 'Adresse e-mail obligatoire',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Adresse e-mail invalide'
+                }
+              })}
+              error={errors.email?.message}
+            />
+            <Input
+              label="Téléphone"
+              type="text"
+              placeholder="Votre numéro de téléphone"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('phone')}
+              error={errors.phone?.message}
+            />
+            <Input
+              label="Sujet"
+              placeholder="Sujet du message"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('subject')}
+              error={errors.subject?.message}
+            />
+            <Input
+              label="Message *"
+              placeholder="Votre message"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('message', { required: 'Le message est obligatoire' })}
+              error={errors.message?.message}
+              as="textarea"
+              rows={4}
+            />
             <div>
               <button
                 type="submit"
@@ -241,16 +197,6 @@ const Contact = () => {
                     <div className="flex-shrink-0">
                       <svg className="h-6 w-6 text-or" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
-                    </div>
-                    <div className="ml-3 text-base text-or-light">
-                      <p>+228 22 789 123</p>
-                    </div>
-                  </div>
-                  <div className="mt-3 flex">
-                    <div className="flex-shrink-0">
-                      <svg className="h-6 w-6 text-or" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
                     <div className="ml-3 text-base text-or-light">

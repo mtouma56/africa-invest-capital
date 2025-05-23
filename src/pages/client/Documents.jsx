@@ -22,19 +22,17 @@ const Documents = () => {
   const [documentName, setDocumentName] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [file, setFile] = useState(null);
+
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
         setLoading(true);
-        
         const { data, error } = await supabase
           .from('documents')
           .select('*')
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
-        
         if (error) throw error;
-        
         setDocuments(data || []);
       } catch (error) {
         console.error('Erreur lors du chargement des documents:', error);
@@ -43,7 +41,6 @@ const Documents = () => {
         setLoading(false);
       }
     };
-    
     if (user) {
       fetchDocuments();
     }
@@ -55,6 +52,7 @@ const Documents = () => {
       setFile(selectedFile);
     }
   };
+
   const handleUpload = async (e) => {
     e.preventDefault();
     
@@ -62,12 +60,10 @@ const Documents = () => {
       showError('Veuillez entrer un nom pour le document');
       return;
     }
-    
     if (!documentType) {
       showError('Veuillez sélectionner un type de document');
       return;
     }
-    
     if (!file) {
       showError('Veuillez sélectionner un fichier');
       return;
@@ -80,21 +76,16 @@ const Documents = () => {
       const fileExt = file.name.split('.').pop();
       const fileName = `${user.id}/${Date.now()}.${fileExt}`;
       const filePath = `documents/${fileName}`;
-      
       // Télécharger le fichier
       const { error: uploadError } = await supabase.storage
         .from('documents')
         .upload(filePath, file);
-      
       if (uploadError) throw uploadError;
-      
       // Obtenir l'URL du fichier
       const { data } = await supabase.storage
         .from('documents')
         .getPublicUrl(filePath);
-      
       const fileUrl = data.publicUrl;
-      
       // Enregistrer le document dans la base de données
       const { error: insertError } = await supabase
         .from('documents')
@@ -108,27 +99,20 @@ const Documents = () => {
             created_at: new Date()
           }
         ]);
-      
       if (insertError) throw insertError;
-      
       showSuccess('Document téléchargé avec succès');
-      
       // Réinitialiser le formulaire
       setDocumentName('');
       setDocumentType('');
       setFile(null);
-      
       // Recharger la liste des documents
       const { data: updatedDocs, error } = await supabase
         .from('documents')
         .select('*')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
-      
       if (error) throw error;
-      
       setDocuments(updatedDocs || []);
-      
     } catch (error) {
       console.error('Erreur lors du téléchargement:', error);
       showError(`Erreur lors du téléchargement: ${error.message}`);
@@ -136,28 +120,24 @@ const Documents = () => {
       setUploading(false);
     }
   };
+
   const handleDelete = async (id, storagePath) => {
     if (!window.confirm('Êtes-vous sûr de vouloir supprimer ce document?')) {
       return;
     }
-    
     try {
       // Supprimer le fichier du stockage
       if (storagePath) {
         await supabase.storage.from('documents').remove([storagePath]);
       }
-      
       // Supprimer l'entrée de la base de données
       const { error } = await supabase
         .from('documents')
         .delete()
         .eq('id', id);
-      
       if (error) throw error;
-      
       // Mettre à jour la liste des documents
       setDocuments(documents.filter(doc => doc.id !== id));
-      
       showSuccess('Document supprimé avec succès');
     } catch (error) {
       console.error('Erreur lors de la suppression:', error);
@@ -175,7 +155,6 @@ const Documents = () => {
       <div className="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:p-6">
           <h2 className="text-lg leading-6 font-medium text-gray-900">Télécharger un document</h2>
-          
           <form className="mt-5 space-y-6" onSubmit={handleUpload}>
             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
               <div>
@@ -194,7 +173,6 @@ const Documents = () => {
                   />
                 </div>
               </div>
-
               <div>
                 <label htmlFor="documentType" className="block text-sm font-medium text-gray-700">
                   Type de document *
@@ -217,7 +195,6 @@ const Documents = () => {
                   </select>
                 </div>
               </div>
-              
               <div className="sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700">Fichier *</label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -242,7 +219,6 @@ const Documents = () => {
                 </div>
               </div>
             </div>
-            
             <div className="flex justify-end">
               <button
                 type="submit"
@@ -258,7 +234,6 @@ const Documents = () => {
 
       <div className="mt-8">
         <h2 className="text-lg font-medium text-gray-900">Documents téléchargés</h2>
-
         <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
           {loading ? (
             <div className="text-center py-6 bg-white">

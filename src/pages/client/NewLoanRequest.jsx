@@ -204,7 +204,7 @@ const NewLoanRequest = () => {
       showSuccess('Demande de prêt soumise avec succès');
       navigate('/client');
       
-    } catch (error) {
+        } catch (error) {
       showError(`Erreur lors de la soumission: ${error.message}`);
       console.error('Erreur de soumission:', error);
     } finally {
