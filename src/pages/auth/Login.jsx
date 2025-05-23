@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -27,10 +27,14 @@ const Login = () => {
         toast.error(error.message || 'Échec de la connexion');
       } else {
         toast.success('Connexion réussie !');
-        // navigate('/client/dashboard'); // À activer si tu veux rediriger automatiquement après login
+        navigate(isAdmin ? '/admin' : '/client');
       }
     } catch (error) {
-      toast.error('Une erreur s\'est produite');
+      if (error.message === 'Failed to fetch') {
+        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+      } else {
+        toast.error("Une erreur s'est produite");
+      }
       console.error(error);
     } finally {
       setLoading(false);
