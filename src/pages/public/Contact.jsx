@@ -62,6 +62,7 @@ const Contact = () => {
               label="Nom complet *"
               placeholder="Votre nom complet"
               className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              labelClassName="text-or-light"
               {...register('name', { required: 'Le nom est obligatoire' })}
               error={errors.name?.message}
             />
@@ -70,6 +71,7 @@ const Contact = () => {
               type="email"
               placeholder="Votre adresse e-mail"
               className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              labelClassName="text-or-light"
               {...register('email', {
                 required: 'Adresse e-mail obligatoire',
                 pattern: {
@@ -84,6 +86,7 @@ const Contact = () => {
               type="text"
               placeholder="Votre numéro de téléphone"
               className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              labelClassName="text-or-light"
               {...register('phone')}
               error={errors.phone?.message}
             />
@@ -91,6 +94,7 @@ const Contact = () => {
               label="Sujet"
               placeholder="Sujet du message"
               className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              labelClassName="text-or-light"
               {...register('subject')}
               error={errors.subject?.message}
             />
@@ -98,6 +102,7 @@ const Contact = () => {
               label="Message *"
               placeholder="Votre message"
               className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              labelClassName="text-or-light"
               {...register('message', { required: 'Le message est obligatoire' })}
               error={errors.message?.message}
               as="textarea"

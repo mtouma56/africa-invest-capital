@@ -67,10 +67,11 @@ const Login = () => {
             type="email"
             placeholder="votre.email@example.com"
             className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            labelClassName="text-or-light"
             {...register('email', {
               required: 'Adresse e-mail requise',
               pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: 'Adresse e-mail invalide'
               }
             })}
@@ -82,6 +83,7 @@ const Login = () => {
             type="password"
             placeholder="Votre mot de passe"
             className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            labelClassName="text-or-light"
             {...register('password', { required: 'Mot de passe requis' })}
             error={errors.password?.message}
           />
