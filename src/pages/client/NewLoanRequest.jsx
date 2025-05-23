@@ -205,7 +205,11 @@ const NewLoanRequest = () => {
       navigate('/client');
       
     } catch (error) {
-      toast.error(`Erreur lors de la soumission: ${error.message}`);
+      if (error.message === 'Failed to fetch') {
+        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+      } else {
+        toast.error(`Erreur lors de la soumission: ${error.message}`);
+      }
       console.error('Erreur de soumission:', error);
     } finally {
       setLoading(false);
