@@ -14,11 +14,8 @@ const Contact = () => {
   } = useForm();
 
   const onSubmit = async ({ name, email, phone, subject, message }) => {
-    
     setLoading(true);
-    
     try {
-      // Enregistrement du message dans Supabase
       const { error } = await supabase
         .from('contact_messages')
         .insert([
@@ -32,14 +29,9 @@ const Contact = () => {
             created_at: new Date()
           }
         ]);
-      
       if (error) throw error;
-      
       toast.success('Votre message a été envoyé avec succès');
-      
-      // Réinitialiser le formulaire
       reset();
-      
     } catch (error) {
       toast.error('Une erreur s\'est produite. Veuillez réessayer.');
       console.error('Erreur lors de l\'envoi du message:', error);
@@ -93,24 +85,21 @@ const Contact = () => {
               {...register('phone')}
               error={errors.phone?.message}
             />
-            <div>
-              <Input
-                label="Sujet"
-                type="text"
-                placeholder="Sujet du message"
-                className="bg-[#232323] text-or-light border-or placeholder-or-light"
-                {...register('subject')}
-                error={errors.subject?.message}
-              />
-            </div>
             <Input
-              as="textarea"
+              label="Sujet"
+              placeholder="Sujet du message"
+              className="bg-[#232323] text-or-light border-or placeholder-or-light"
+              {...register('subject')}
+              error={errors.subject?.message}
+            />
+            <Input
               label="Message *"
-              rows={4}
               placeholder="Votre message"
               className="bg-[#232323] text-or-light border-or placeholder-or-light"
               {...register('message', { required: 'Le message est obligatoire' })}
               error={errors.message?.message}
+              as="textarea"
+              rows={4}
             />
             <div>
               <button

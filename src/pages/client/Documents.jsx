@@ -129,7 +129,11 @@ const Documents = () => {
       
     } catch (error) {
       console.error('Erreur lors du téléchargement:', error);
-      toast.error(`Erreur lors du téléchargement: ${error.message}`);
+      if (error.message === 'Failed to fetch') {
+        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+      } else {
+        toast.error(`Erreur lors du téléchargement: ${error.message}`);
+      }
     } finally {
       setUploading(false);
     }
@@ -159,7 +163,11 @@ const Documents = () => {
       toast.success('Document supprimé avec succès');
     } catch (error) {
       console.error('Erreur lors de la suppression:', error);
-      toast.error(`Erreur lors de la suppression: ${error.message}`);
+      if (error.message === 'Failed to fetch') {
+        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+      } else {
+        toast.error(`Erreur lors de la suppression: ${error.message}`);
+      }
     }
   };
 

@@ -14,7 +14,7 @@ const Register = () => {
     formState: { errors }
   } = useForm();
 
-  const { register } = useAuth();
+  const { register, login } = useAuth();
   const navigate = useNavigate();
 
   const onSubmit = async ({ fullName, email, password, password2 }) => {
@@ -30,11 +30,17 @@ const Register = () => {
       if (error) {
         toast.error(error.message || "Erreur lors de la création du compte");
       } else {
-        toast.success('Compte créé avec succès ! Vous pouvez vous connecter.');
-        navigate('/auth/login');
+        toast.success('Compte créé avec succès !');
+        // Connexion automatique puis redirection vers le tableau de bord
+        await login(email, password);
+        navigate('/client');
       }
     } catch (error) {
-      toast.error("Une erreur s'est produite");
+      if (error.message === 'Failed to fetch') {
+        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+      } else {
+        toast.error("Une erreur s'est produite");
+      }
       console.error(error);
     } finally {
       setLoading(false);
