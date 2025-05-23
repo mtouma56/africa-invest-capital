@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
 import UserCircleIcon from '@heroicons/react/24/outline/UserCircleIcon';
@@ -8,8 +8,19 @@ import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 const Header = ({ isAdmin, toggleSidebar, user }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const menuButtonRef = useRef(null);
+  const firstMobileLinkRef = useRef(null);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      firstMobileLinkRef.current?.focus();
+    } else {
+      menuButtonRef.current?.focus();
+    }
+  }, [mobileMenuOpen]);
 
   const handleLogout = async () => {
     await logout();
@@ -34,6 +45,7 @@ const Header = ({ isAdmin, toggleSidebar, user }) => {
               <button
                 type="button"
                 className="text-or flex items-center lg:hidden"
+                aria-label="Ouvrir le menu latéral"
                 onClick={toggleSidebar}
               >
                 <span className="sr-only">Ouvrir le menu</span>
@@ -95,15 +107,25 @@ const Header = ({ isAdmin, toggleSidebar, user }) => {
             </Link>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-8">
-            {publicNavigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="text-or hover:text-or-light text-lg font-medium transition"
-              >
-                {item.name}
-              </Link>
-            ))}
+            {publicNavigation.map((item) => {
+              const isActive =
+                location.pathname === item.href ||
+                (item.href !== '/' && location.pathname.startsWith(item.href));
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`${
+                    isActive
+                      ? 'border-b-2 border-or text-or-light'
+                      : 'text-or hover:text-or-light'
+                  } text-lg font-medium transition pb-1`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
             <Link
               to="/auth/login"
               className="ml-8 px-6 py-2 rounded-xl bg-or text-noir font-bold text-lg border border-or hover:bg-or-light hover:text-noir transition"
@@ -114,7 +136,10 @@ const Header = ({ isAdmin, toggleSidebar, user }) => {
           <div className="md:hidden">
             <button
               type="button"
+              ref={menuButtonRef}
               className="text-or"
+              aria-controls="mobile-menu"
+              aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Ouvrir le menu</span>
@@ -124,7 +149,7 @@ const Header = ({ isAdmin, toggleSidebar, user }) => {
         </div>
         {/* Menu mobile */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-0 inset-x-0 z-20 bg-noir shadow-2xl">
+          <div id="mobile-menu" className="md:hidden absolute top-0 inset-x-0 z-20 bg-noir shadow-2xl">
             <div className="px-4 pt-4 pb-4 flex flex-col">
               <div className="flex justify-between items-center border-b border-or pb-3">
                 <Link to="/" className="flex items-center">
@@ -134,21 +159,33 @@ const Header = ({ isAdmin, toggleSidebar, user }) => {
                 <button
                   type="button"
                   className="text-or"
+                  aria-label="Fermer le menu"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <XMarkIcon className="h-8 w-8" aria-hidden="true" />
                 </button>
               </div>
-              {publicNavigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="text-or hover:text-or-light text-lg font-medium py-3 transition"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {publicNavigation.map((item, idx) => {
+                const isActive =
+                  location.pathname === item.href ||
+                  (item.href !== '/' && location.pathname.startsWith(item.href));
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    ref={idx === 0 ? firstMobileLinkRef : null}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`${
+                      isActive
+                        ? 'border-l-4 border-or pl-2 text-or-light'
+                        : 'text-or hover:text-or-light'
+                    } text-lg font-medium py-3 transition`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
               <Link
                 to="/auth/login"
                 className="mt-4 block rounded-xl bg-or px-6 py-3 text-center text-lg font-bold text-noir border border-or hover:bg-or-light hover:text-noir transition"

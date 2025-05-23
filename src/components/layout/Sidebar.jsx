@@ -46,6 +46,7 @@ const Sidebar = ({ isAdmin, isOpen, toggleSidebar }) => {
             <button
               type="button"
               className="ml-auto lg:hidden text-primary"
+              aria-label="Fermer le menu latéral"
               onClick={toggleSidebar}
             >
               <span className="sr-only">Fermer le menu</span>
@@ -63,6 +64,7 @@ const Sidebar = ({ isAdmin, isOpen, toggleSidebar }) => {
                   <Link
                     key={item.name}
                     to={item.href}
+                    aria-current={isActive ? 'page' : undefined}
                     className={`${
                       isActive
                         ? 'bg-primary text-white'
