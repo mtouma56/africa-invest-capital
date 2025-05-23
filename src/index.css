@@ -60,6 +60,10 @@ body {
   background-color: var(--color-primary-dark);
 }
 
+.hover\:bg-primary-light:hover {
+  background-color: var(--color-primary-light);
+}
+
 .hover\:text-primary:hover {
   color: var(--color-primary);
 }

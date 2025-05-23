@@ -1,25 +1,23 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-hot-toast';
+import Input from '../../components/common/Input';
 
 const Register = () => {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
   const [loading, setLoading] = useState(false);
+  const {
+    register: registerForm,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm();
 
-  const { register } = useAuth();
+  const { register, login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!fullName || !email || !password || !password2) {
-      toast.error('Veuillez remplir tous les champs');
-      return;
-    }
+  const onSubmit = async ({ fullName, email, password, password2 }) => {
     if (password !== password2) {
       toast.error('Les mots de passe ne correspondent pas');
       return;
@@ -32,11 +30,17 @@ const Register = () => {
       if (error) {
         toast.error(error.message || "Erreur lors de la création du compte");
       } else {
-        toast.success('Compte créé avec succès ! Vous pouvez vous connecter.');
-        navigate('/auth/login');
+        toast.success('Compte créé avec succès !');
+        // Connexion automatique puis redirection vers le tableau de bord
+        await login(email, password);
+        navigate('/client');
       }
     } catch (error) {
-      toast.error("Une erreur s'est produite");
+      if (error.message === 'Failed to fetch') {
+        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+      } else {
+        toast.error("Une erreur s'est produite");
+      }
       console.error(error);
     } finally {
       setLoading(false);
@@ -67,75 +71,50 @@ const Register = () => {
       </div>
 
       <div className="mx-auto w-full max-w-md bg-[#232323] py-10 px-8 rounded-lg shadow-lg">
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="fullName" className="block text-sm font-medium text-[#E6C97A] mb-2">
-              Nom complet
-            </label>
-            <input
-              id="fullName"
-              name="fullName"
-              type="text"
-              autoComplete="name"
-              required
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="Votre nom complet"
-              className="appearance-none block w-full px-3 py-2 border border-[#D4AF37] rounded-md shadow-sm placeholder-[#E6C97A] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] text-[#E6C97A] bg-[#181818] sm:text-sm"
-              aria-label="Nom complet"
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-[#E6C97A] mb-2">
-              Adresse e-mail
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="votre.email@example.com"
-              className="appearance-none block w-full px-3 py-2 border border-[#D4AF37] rounded-md shadow-sm placeholder-[#E6C97A] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] text-[#E6C97A] bg-[#181818] sm:text-sm"
-              aria-label="Adresse e-mail"
-            />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-[#E6C97A] mb-2">
-              Mot de passe
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Votre mot de passe"
-              className="appearance-none block w-full px-3 py-2 border border-[#D4AF37] rounded-md shadow-sm placeholder-[#E6C97A] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] text-[#E6C97A] bg-[#181818] sm:text-sm"
-              aria-label="Mot de passe"
-            />
-          </div>
-          <div>
-            <label htmlFor="password2" className="block text-sm font-medium text-[#E6C97A] mb-2">
-              Confirmer le mot de passe
-            </label>
-            <input
-              id="password2"
-              name="password2"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={password2}
-              onChange={(e) => setPassword2(e.target.value)}
-              placeholder="Confirmez le mot de passe"
-              className="appearance-none block w-full px-3 py-2 border border-[#D4AF37] rounded-md shadow-sm placeholder-[#E6C97A] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] text-[#E6C97A] bg-[#181818] sm:text-sm"
-              aria-label="Confirmer le mot de passe"
-            />
-          </div>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            label="Nom complet"
+            placeholder="Votre nom complet"
+            className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            {...registerForm('fullName', { required: 'Nom complet requis' })}
+            error={errors.fullName?.message}
+          />
+          <Input
+            label="Adresse e-mail"
+            type="email"
+            placeholder="votre.email@example.com"
+            className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            {...registerForm('email', {
+              required: 'Adresse e-mail requise',
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: 'Adresse e-mail invalide'
+              }
+            })}
+            error={errors.email?.message}
+          />
+          <Input
+            label="Mot de passe"
+            type="password"
+            placeholder="Votre mot de passe"
+            className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            {...registerForm('password', {
+              required: 'Mot de passe requis',
+              minLength: { value: 6, message: 'Minimum 6 caractères' }
+            })}
+            error={errors.password?.message}
+          />
+          <Input
+            label="Confirmer le mot de passe"
+            type="password"
+            placeholder="Confirmez le mot de passe"
+            className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            {...registerForm('password2', {
+              required: 'Confirmation requise',
+              validate: value => value === watch('password') || 'Les mots de passe ne correspondent pas'
+            })}
+            error={errors.password2?.message}
+          />
           <div>
             <button
               type="submit"

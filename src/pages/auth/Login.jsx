@@ -1,36 +1,38 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { toast } from 'react-hot-toast';
+import Input from '../../components/common/Input';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+  const { login, isAdmin } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!email || !password) {
-      toast.error('Veuillez remplir tous les champs');
-      return;
-    }
-    
+  const onSubmit = async ({ email, password }) => {
     setLoading(true);
-    
+
     try {
       const { error } = await login(email, password);
-      
+
       if (error) {
         toast.error(error.message || 'Échec de la connexion');
       } else {
         toast.success('Connexion réussie !');
-        // navigate('/client/dashboard'); // À activer si tu veux rediriger automatiquement après login
+        navigate(isAdmin ? '/admin' : '/client');
       }
     } catch (error) {
-      toast.error('Une erreur s\'est produite');
+      if (error.message === 'Failed to fetch') {
+        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+      } else {
+        toast.error("Une erreur s'est produite");
+      }
       console.error(error);
     } finally {
       setLoading(false);
@@ -59,46 +61,30 @@ const Login = () => {
       </div>
 
       <div className="mx-auto w-full max-w-md bg-[#232323] py-10 px-8 rounded-lg shadow-lg">
-        <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-[#E6C97A] mb-2">
-              Adresse e-mail
-            </label>
-            <div>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="votre.email@example.com"
-                className="appearance-none block w-full px-3 py-2 border border-[#D4AF37] rounded-md shadow-sm placeholder-[#E6C97A] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] text-[#E6C97A] bg-[#181818] sm:text-sm"
-                aria-label="Adresse e-mail"
-              />
-            </div>
-          </div>
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            label="Adresse e-mail"
+            type="email"
+            placeholder="votre.email@example.com"
+            className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            {...register('email', {
+              required: 'Adresse e-mail requise',
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 
+                message: 'Adresse e-mail invalide'
+              }
+            })}
+            error={errors.email?.message}
+          />
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-[#E6C97A] mb-2">
-              Mot de passe
-            </label>
-            <div>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Votre mot de passe"
-                className="appearance-none block w-full px-3 py-2 border border-[#D4AF37] rounded-md shadow-sm placeholder-[#E6C97A] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] text-[#E6C97A] bg-[#181818] sm:text-sm"
-                aria-label="Mot de passe"
-              />
-            </div>
-          </div>
+          <Input
+            label="Mot de passe"
+            type="password"
+            placeholder="Votre mot de passe"
+            className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            {...register('password', { required: 'Mot de passe requis' })}
+            error={errors.password?.message}
+          />
 
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">

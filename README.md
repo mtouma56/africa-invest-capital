@@ -45,3 +45,11 @@ git clone https://github.com/votre-username/africa-invest-capital.git
 cd africa-invest-capital
 npm install
 ```
+
+## ♿ Accessibilité
+
+- Utiliser `aria-label` ou `aria-describedby` pour décrire les champs de formulaire.
+- Ajouter `aria-hidden="true"` aux icônes purement décoratives.
+- Vérifier que chaque combinaison de couleurs respecte un ratio de contraste d'au moins 4.5:1.
+- Les couleurs dorées ont été ajustées (`#FFD700`) pour un meilleur contraste sur fond sombre.
+- Construire les grilles avec les classes réactives de Tailwind (`sm:`, `md:`, `lg:`) afin d'assurer une mise en page 100 % responsive.

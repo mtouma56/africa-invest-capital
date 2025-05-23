@@ -138,8 +138,8 @@ const Header = ({ isAdmin, toggleSidebar, user }) => {
               type="button"
               ref={menuButtonRef}
               className="text-or"
-              aria-controls="mobile-menu"
-              aria-expanded={mobileMenuOpen}
+aria-controls="mobile-menu"
+aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Ouvrir le menu</span>

@@ -7,21 +7,28 @@ export default {
     theme: {
       extend: {
         colors: {
-          primary: {
-            DEFAULT: '#D4AF37', // or
-            light: '#E6C76E',
-            dark: '#B38D1D',
+          or: {
+            DEFAULT: '#C8B063',
+            light: '#F7D774',
+            dark: '#A8872A',
           },
-          secondary: {
-            DEFAULT: '#111111', // noir
-            light: '#333333',
+          noir: {
+            DEFAULT: '#181818',
+            light: '#232323',
             dark: '#000000',
           },
-          noir: "#101010",
-          or: "#C8B063",
-          "or-light": "#F7D774",
-          "or-dark": "#FFD700",
-          "texte-principal": "#F5F5F5",
+          gris: {
+            light: '#F5F5F5',
+            DEFAULT: '#9CA3AF',
+            dark: '#4B5563',
+          },
+          blanc: '#FFFFFF',
+        },
+        boxShadow: {
+          premium: '0 8px 20px rgba(0,0,0,0.15)',
+        },
+        borderRadius: {
+          premium: '1rem',
         },
         fontFamily: {
           sans: ['Poppins', 'sans-serif'],
