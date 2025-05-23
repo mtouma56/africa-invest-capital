@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 import { useAuth } from '../../hooks/useAuth';
 import { supabase } from '../../config/supabaseClient';
 
@@ -50,9 +50,9 @@ const Profile = () => {
       
       if (error) throw error;
       
-      toast.success('Profil mis à jour avec succès');
+      showSuccess('Profil mis à jour avec succès');
     } catch (error) {
-      toast.error(`Erreur lors de la mise à jour: ${error.message}`);
+      showError(`Erreur lors de la mise à jour: ${error.message}`);
       console.error('Erreur de mise à jour:', error);
     } finally {
       setLoading(false);
@@ -62,12 +62,12 @@ const Profile = () => {
     e.preventDefault();
     
     if (newPassword !== confirmPassword) {
-      toast.error('Les nouveaux mots de passe ne correspondent pas');
+      showError('Les nouveaux mots de passe ne correspondent pas');
       return;
     }
     
     if (newPassword.length < 6) {
-      toast.error('Le nouveau mot de passe doit contenir au moins 6 caractères');
+      showError('Le nouveau mot de passe doit contenir au moins 6 caractères');
       return;
     }
     
@@ -81,7 +81,7 @@ const Profile = () => {
       });
       
       if (signInError) {
-        toast.error('Mot de passe actuel incorrect');
+        showError('Mot de passe actuel incorrect');
         return;
       }
       
@@ -92,7 +92,7 @@ const Profile = () => {
       
       if (updateError) throw updateError;
       
-      toast.success('Mot de passe mis à jour avec succès');
+      showSuccess('Mot de passe mis à jour avec succès');
       
       // Réinitialiser les champs
       setCurrentPassword('');
@@ -100,7 +100,7 @@ const Profile = () => {
       setConfirmPassword('');
       
     } catch (error) {
-      toast.error(`Erreur lors de la mise à jour du mot de passe: ${error.message}`);
+      showError(`Erreur lors de la mise à jour du mot de passe: ${error.message}`);
       console.error('Erreur de mise à jour du mot de passe:', error);
     } finally {
       setPasswordLoading(false);

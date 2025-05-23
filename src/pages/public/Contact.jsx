@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 import { supabase } from '../../config/supabaseClient';
 import Input from '../../components/common/Input';
 
@@ -30,10 +30,12 @@ const Contact = () => {
           }
         ]);
       if (error) throw error;
-      toast.success('Votre message a été envoyé avec succès');
+
+      showSuccess('Votre message a été envoyé avec succès');
       reset();
+
     } catch (error) {
-      toast.error('Une erreur s\'est produite. Veuillez réessayer.');
+      showError("Une erreur s'est produite. Veuillez réessayer.");
       console.error('Erreur lors de l\'envoi du message:', error);
     } finally {
       setLoading(false);
@@ -195,16 +197,6 @@ const Contact = () => {
                     <div className="flex-shrink-0">
                       <svg className="h-6 w-6 text-or" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
-                    </div>
-                    <div className="ml-3 text-base text-or-light">
-                      <p>+228 22 789 123</p>
-                    </div>
-                  </div>
-                  <div className="mt-3 flex">
-                    <div className="flex-shrink-0">
-                      <svg className="h-6 w-6 text-or" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
                     <div className="ml-3 text-base text-or-light">

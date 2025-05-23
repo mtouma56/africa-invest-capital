@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 import Input from '../../components/common/Input';
 
 const Register = () => {
@@ -18,8 +18,12 @@ const Register = () => {
   const navigate = useNavigate();
 
   const onSubmit = async ({ fullName, email, password, password2 }) => {
+    if (!fullName || !email || !password || !password2) {
+      showError('Veuillez remplir tous les champs');
+      return;
+    }
     if (password !== password2) {
-      toast.error('Les mots de passe ne correspondent pas');
+      showError('Les mots de passe ne correspondent pas');
       return;
     }
     setLoading(true);
@@ -28,18 +32,18 @@ const Register = () => {
       // ⚠️ L’ordre des arguments est IMPORTANT !
       const { error } = await register(fullName, email, password);
       if (error) {
-        toast.error(error.message || "Erreur lors de la création du compte");
+        showError(error.message || "Erreur lors de la création du compte");
       } else {
-        toast.success('Compte créé avec succès !');
+        showSuccess('Compte créé avec succès !');
         // Connexion automatique puis redirection vers le tableau de bord
         await login(email, password);
         navigate('/client');
       }
     } catch (error) {
       if (error.message === 'Failed to fetch') {
-        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+        showError('Erreur réseau. Veuillez vérifier votre connexion.');
       } else {
-        toast.error("Une erreur s'est produite");
+        showError("Une erreur s'est produite");
       }
       console.error(error);
     } finally {

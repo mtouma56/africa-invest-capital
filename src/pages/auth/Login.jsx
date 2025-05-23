@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 import Input from '../../components/common/Input';
 
 const Login = () => {
@@ -22,16 +22,16 @@ const Login = () => {
       const { error } = await login(email, password);
 
       if (error) {
-        toast.error(error.message || 'Échec de la connexion');
+        showError(error.message || 'Échec de la connexion');
       } else {
-        toast.success('Connexion réussie !');
+        showSuccess('Connexion réussie !');
         navigate(isAdmin ? '/admin' : '/client');
       }
     } catch (error) {
       if (error.message === 'Failed to fetch') {
-        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
+        showError('Erreur réseau. Veuillez vérifier votre connexion.');
       } else {
-        toast.error("Une erreur s'est produite");
+        showError("Une erreur s'est produite");
       }
       console.error(error);
     } finally {

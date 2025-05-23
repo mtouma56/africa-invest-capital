@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +13,7 @@ const ResetPassword = () => {
     e.preventDefault();
 
     if (!email) {
-      toast.error('Veuillez entrer votre adresse e-mail');
+      showError('Veuillez entrer votre adresse e-mail');
       return;
     }
 
@@ -23,13 +23,13 @@ const ResetPassword = () => {
       const { error } = await resetPassword(email);
 
       if (error) {
-        toast.error(error.message || "Échec de l'envoi du lien de réinitialisation");
+        showError(error.message || "Échec de l'envoi du lien de réinitialisation");
       } else {
         setSubmitted(true);
-        toast.success('Lien de réinitialisation envoyé à votre adresse e-mail');
+        showSuccess('Lien de réinitialisation envoyé à votre adresse e-mail');
       }
     } catch (error) {
-      toast.error("Une erreur s'est produite");
+      showError("Une erreur s'est produite");
       console.error(error);
     } finally {
       setLoading(false);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { showSuccess, showError } from '../../utils/toast';
 import { supabase } from '../../config/supabaseClient';
 import { useAuth } from '../../hooks/useAuth';
 
@@ -77,9 +77,9 @@ const NewLoanRequest = () => {
           break;
       }
       
-      toast.success(`${file.name} téléchargé avec succès`);
+      showSuccess(`${file.name} téléchargé avec succès`);
     } catch (error) {
-      toast.error(`Erreur lors du téléchargement: ${error.message}`);
+      showError(`Erreur lors du téléchargement: ${error.message}`);
       console.error('Erreur de téléchargement:', error);
     } finally {
       // Réinitialiser l'état d'upload
@@ -89,19 +89,19 @@ const NewLoanRequest = () => {
   
   const validateStep1 = () => {
     if (!loanType) {
-      toast.error('Veuillez sélectionner un type de prêt');
+      showError('Veuillez sélectionner un type de prêt');
       return false;
     }
     if (!amount || isNaN(amount) || amount <= 0) {
-      toast.error('Veuillez entrer un montant valide');
+      showError('Veuillez entrer un montant valide');
       return false;
     }
     if (!duration || isNaN(duration) || duration <= 0) {
-      toast.error('Veuillez entrer une durée valide');
+      showError('Veuillez entrer une durée valide');
       return false;
     }
     if (!purpose.trim()) {
-      toast.error('Veuillez décrire l\'objet du prêt');
+      showError('Veuillez décrire l\'objet du prêt');
       return false;
     }
     return true;
@@ -109,15 +109,15 @@ const NewLoanRequest = () => {
   
   const validateStep2 = () => {
     if (!idDocument) {
-      toast.error('Veuillez télécharger une pièce d\'identité');
+      showError('Veuillez télécharger une pièce d\'identité');
       return false;
     }
     if (!proofOfIncome) {
-      toast.error('Veuillez télécharger un justificatif de revenu');
+      showError('Veuillez télécharger un justificatif de revenu');
       return false;
     }
     if (!bankStatements) {
-      toast.error('Veuillez télécharger vos relevés bancaires');
+      showError('Veuillez télécharger vos relevés bancaires');
       return false;
     }
     return true;
@@ -201,15 +201,11 @@ const NewLoanRequest = () => {
       
       if (docsError) throw docsError;
       
-      toast.success('Demande de prêt soumise avec succès');
+      showSuccess('Demande de prêt soumise avec succès');
       navigate('/client');
       
-    } catch (error) {
-      if (error.message === 'Failed to fetch') {
-        toast.error('Erreur réseau. Veuillez vérifier votre connexion.');
-      } else {
-        toast.error(`Erreur lors de la soumission: ${error.message}`);
-      }
+        } catch (error) {
+      showError(`Erreur lors de la soumission: ${error.message}`);
       console.error('Erreur de soumission:', error);
     } finally {
       setLoading(false);
