@@ -7,6 +7,7 @@ const Input = forwardRef(({
   error,
   className = '',
   containerClassName = '',
+  labelClassName = '',
   id,
   disabled = false,
   icon,
@@ -19,7 +20,10 @@ const Input = forwardRef(({
   return (
     <div className={`mb-4 ${containerClassName}`}>
       {label && (
-        <label htmlFor={uniqueId} className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor={uniqueId}
+          className={`block text-sm font-medium text-gray-700 mb-1 ${labelClassName}`}
+        >
           {label}
         </label>
       )}

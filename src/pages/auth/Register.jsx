@@ -80,6 +80,7 @@ const Register = () => {
             label="Nom complet"
             placeholder="Votre nom complet"
             className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            labelClassName="text-or-light"
             {...registerForm('fullName', { required: 'Nom complet requis' })}
             error={errors.fullName?.message}
           />
@@ -88,6 +89,7 @@ const Register = () => {
             type="email"
             placeholder="votre.email@example.com"
             className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            labelClassName="text-or-light"
             {...registerForm('email', {
               required: 'Adresse e-mail requise',
               pattern: {
@@ -102,6 +104,7 @@ const Register = () => {
             type="password"
             placeholder="Votre mot de passe"
             className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            labelClassName="text-or-light"
             {...registerForm('password', {
               required: 'Mot de passe requis',
               minLength: { value: 6, message: 'Minimum 6 caractères' }
@@ -113,6 +116,7 @@ const Register = () => {
             type="password"
             placeholder="Confirmez le mot de passe"
             className="bg-[#181818] text-[#E6C97A] placeholder-[#E6C97A] border-[#D4AF37]"
+            labelClassName="text-or-light"
             {...registerForm('password2', {
               required: 'Confirmation requise',
               validate: value => value === watch('password') || 'Les mots de passe ne correspondent pas'
