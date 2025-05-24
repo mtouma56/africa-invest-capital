@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS documents (
   file_url TEXT NOT NULL,
   file_type TEXT NOT NULL,
   file_size BIGINT NOT NULL,
-  category TEXT NOT NULL CHECK (category IN ('identite', 'revenu', 'domicile', 'professionnel', 'autre')),
+  category TEXT NOT NULL CHECK (category IN ('identite', 'revenu', 'banque', 'domicile', 'professionnel', 'autre')),
   uploaded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -92,6 +92,11 @@ USING (auth.uid() = id);
 CREATE POLICY "Les utilisateurs peuvent mettre à jour leur propre profil" ON profiles
 FOR UPDATE
 USING (auth.uid() = id);
+
+CREATE POLICY "Les utilisateurs peuvent créer leur profil" ON profiles
+FOR INSERT
+TO anon
+WITH CHECK (auth.uid() = id);
 
 CREATE POLICY "Les administrateurs peuvent tout voir" ON profiles
 FOR ALL

@@ -230,13 +230,13 @@ const Dashboard = () => {
                 {documents.slice(0, 5).map((document) => (
                   <tr key={document.id}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
-                      {document.name}
+                      {document.file_name}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {document.type}
+                      {document.category}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {new Date(document.created_at).toLocaleDateString('fr-FR')}
+                      {new Date(document.uploaded_at).toLocaleDateString('fr-FR')}
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <a 
