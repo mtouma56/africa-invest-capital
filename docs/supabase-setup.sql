@@ -95,7 +95,7 @@ USING (auth.uid() = id);
 
 CREATE POLICY "Les utilisateurs peuvent créer leur profil" ON profiles
 FOR INSERT
-TO anon
+TO authenticated
 WITH CHECK (auth.uid() = id);
 
 CREATE POLICY "Les administrateurs peuvent tout voir" ON profiles
