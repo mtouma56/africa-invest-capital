@@ -47,14 +47,20 @@ export const AuthProvider = ({ children }) => {
 
       // 2. Création du profil utilisateur avec l'ID Supabase
       if (authData.user) {
+        // Séparation du nom complet en prénom et nom de famille
+        const [firstName, ...rest] = fullName.split(' ');
+        const lastName = rest.join(' ');
+
         const { error: profileError } = await supabase
           .from('profiles')
           .insert([
             {
-              id: authData.user.id,         // Lien avec l'utilisateur auth
-              full_name: fullName,          // Stocke le nom complet de l'utilisateur
-              role: 'client',               // Par défaut, ou adapte si besoin
-            }
+              id: authData.user.id, // Lien avec l'utilisateur auth
+              email,
+              first_name: firstName,
+              last_name: lastName,
+              role: 'client', // Par défaut, ou adapte si besoin
+            },
           ]);
         if (profileError) throw profileError;
       }
