@@ -45,14 +45,14 @@ const NewLoanRequest = () => {
       
       // Télécharger le fichier dans le bucket "documents"
       const { error: uploadError } = await supabase.storage
-        .from('documents')
+        .from('uploads')
         .upload(filePath, file);
       
       if (uploadError) throw uploadError;
       
       // Obtenir l'URL du fichier
       const { data } = await supabase.storage
-        .from('documents')
+        .from('uploads')
         .getPublicUrl(filePath);
       
       const fileUrl = data.publicUrl;
