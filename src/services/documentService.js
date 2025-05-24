@@ -8,14 +8,14 @@ export const uploadDocument = async (file, userId, loanRequestId) => {
     
     // Upload du fichier
     const { error: uploadError } = await supabase.storage
-      .from('documents')
+      .from('uploads')
       .upload(filePath, file);
       
     if (uploadError) throw uploadError;
     
     // Récupération de l'URL du fichier
     const { data: { publicUrl } } = supabase.storage
-      .from('documents')
+      .from('uploads')
       .getPublicUrl(filePath);
     
     // Enregistrement des métadonnées dans la base de données
@@ -63,7 +63,7 @@ export const getUserDocuments = async (userId, loanRequestId = null) => {
 export const getDocumentUrl = async (filePath) => {
   try {
     const { data: { publicUrl } } = supabase.storage
-      .from('documents')
+      .from('uploads')
       .getPublicUrl(filePath);
       
     return publicUrl;
@@ -86,7 +86,7 @@ export const deleteDocument = async (documentId) => {
     
     // Supprimer le fichier du stockage
     const { error: storageError } = await supabase.storage
-      .from('documents')
+      .from('uploads')
       .remove([document.file_path]);
     
     if (storageError) throw storageError;

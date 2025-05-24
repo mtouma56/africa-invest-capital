@@ -78,12 +78,12 @@ const Documents = () => {
       const filePath = `documents/${fileName}`;
       // Télécharger le fichier
       const { error: uploadError } = await supabase.storage
-        .from('documents')
+        .from('uploads')
         .upload(filePath, file);
       if (uploadError) throw uploadError;
       // Obtenir l'URL du fichier
       const { data } = await supabase.storage
-        .from('documents')
+        .from('uploads')
         .getPublicUrl(filePath);
       const fileUrl = data.publicUrl;
       // Enregistrer le document dans la base de données
@@ -130,7 +130,7 @@ const Documents = () => {
     try {
       // Supprimer le fichier du stockage
       if (storagePath) {
-        await supabase.storage.from('documents').remove([storagePath]);
+        await supabase.storage.from('uploads').remove([storagePath]);
       }
       // Supprimer l'entrée de la base de données
       const { error } = await supabase
