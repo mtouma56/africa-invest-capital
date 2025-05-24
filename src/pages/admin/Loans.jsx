@@ -7,40 +7,19 @@ import Loader from '../../components/common/Loader';
 import EmptyState from '../../components/common/EmptyState';
 
 // Importation directe des icônes
-import ClockIcon from '@heroicons/react/24/outline/ClockIcon';
-import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon'; 
-import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
 import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon';
 import ChevronDownIcon from '@heroicons/react/24/outline/ChevronDownIcon';
+import { loanStatusMap, loanTypeLabels } from '../../utils/constants';
 
-const statusColors = {
-  pending: 'bg-yellow-100 text-yellow-800',
-  approved: 'bg-green-100 text-green-800',
-  rejected: 'bg-red-100 text-red-800',
-  completed: 'bg-blue-100 text-blue-800',
-};
-
-const statusIcons = {
-  pending: ClockIcon,
-  approved: CheckCircleIcon,
-  rejected: ExclamationCircleIcon,
-  completed: CheckCircleIcon,
-};
-
-const loanTypes = {
-  business: 'Prêt entreprise',
-  mortgage: 'Prêt immobilier',
-  personal: 'Prêt personnel',
-  education: 'Prêt éducation',
-  auto: 'Prêt automobile',
-};
-
-const statusLabels = {
-  pending: 'En attente',
-  approved: 'Approuvé',
-  rejected: 'Refusé',
-  completed: 'Complété',
-};
+const statusColors = Object.fromEntries(
+  Object.entries(loanStatusMap).map(([k, v]) => [k, `${v.bg} ${v.textColor}`])
+);
+const statusIcons = Object.fromEntries(
+  Object.entries(loanStatusMap).map(([k, v]) => [k, v.icon])
+);
+const statusLabels = Object.fromEntries(
+  Object.entries(loanStatusMap).map(([k, v]) => [k, v.label])
+);
 
 const AdminLoans = () => {
   const { user } = useAuth();
@@ -88,7 +67,11 @@ const AdminLoans = () => {
         }
         
         if (searchQuery) {
-          query = query.or(`profiles.first_name.ilike.%${searchQuery}%,profiles.last_name.ilike.%${searchQuery}%,profiles.email.ilike.%${searchQuery}%`);
+          const search = `%${searchQuery}%`;
+          const filters = ['first_name', 'last_name', 'email']
+            .map(col => `${col}.ilike.${search}`)
+            .join(',');
+          query = query.or(filters, { foreignTable: 'profiles' });
         }
         
         // Appliquer la pagination
@@ -328,7 +311,7 @@ const AdminLoans = () => {
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {loanTypes[loan.loan_type] || loan.loan_type}
+                      {loanTypeLabels[loan.loan_type] || loan.loan_type}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' }).format(loan.amount)}

@@ -7,27 +7,11 @@ import Button from '../../components/common/Button';
 import Alert from '../../components/common/Alert';
 import Loader from '../../components/common/Loader';
 import Modal from '../../components/common/Modal';
+import { formatCurrency, formatDate } from '../../utils/formatters';
+import { loanStatusMap } from '../../utils/constants';
+import StatusBadge from '../../components/common/StatusBadge';
 
-const statusLabels = {
-  'en_attente': { label: 'En attente', bg: 'bg-yellow-100', textColor: 'text-yellow-800' },
-  'en_cours': { label: 'En cours', bg: 'bg-blue-100', textColor: 'text-blue-800' },
-  'approuve': { label: 'Approuvé', bg: 'bg-green-100', textColor: 'text-green-800' },
-  'rejete': { label: 'Rejeté', bg: 'bg-red-100', textColor: 'text-red-800' }
-};
-
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('fr-FR', {
-    style: 'currency',
-    currency: 'XOF',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
-  }).format(amount);
-};
-
-const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString('fr-FR', options);
-};
+const statusLabels = loanStatusMap;
 
 const formatFileSize = (bytes) => {
   if (bytes < 1024) return bytes + ' octets';
@@ -290,9 +274,7 @@ const LoanDetails = () => {
               <div>
                 <p className="text-sm font-medium text-gray-500">Statut</p>
                 <p className="mt-1">
-                  <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusLabels[loan.status].bg} ${statusLabels[loan.status].textColor}`}>
-                    {statusLabels[loan.status].label}
-                  </span>
+                  <StatusBadge status={loan.status} />
                 </p>
               </div>
               
@@ -528,9 +510,7 @@ const LoanDetails = () => {
               <div>
                 <p className="text-sm font-medium text-gray-500">Status actuel</p>
                 <p className="mt-1">
-                  <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusLabels[loan.status].bg} ${statusLabels[loan.status].textColor}`}>
-                    {statusLabels[loan.status].label}
-                  </span>
+                  <StatusBadge status={loan.status} />
                 </p>
               </div>
               

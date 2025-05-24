@@ -4,38 +4,18 @@ import { supabase } from '../../config/supabaseClient';
 import { useAuth } from '../../hooks/useAuth';
 
 // Importation directe des icônes
-import ClockIcon from '@heroicons/react/24/outline/ClockIcon';
-import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon';
-import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
+import { loanStatusMap, loanTypeLabels } from '../../utils/constants';
+import StatusBadge from '../../components/common/StatusBadge';
 
-const statusColors = {
-  pending: 'bg-yellow-100 text-yellow-800',
-  approved: 'bg-green-100 text-green-800',
-  rejected: 'bg-red-100 text-red-800',
-  completed: 'bg-blue-100 text-blue-800',
-};
-
-const statusIcons = {
-  pending: ClockIcon,
-  approved: CheckCircleIcon,
-  rejected: ExclamationCircleIcon,
-  completed: CheckCircleIcon,
-};
-
-const loanTypes = {
-  business: 'Prêt entreprise',
-  mortgage: 'Prêt immobilier',
-  personal: 'Prêt personnel',
-  education: 'Prêt éducation',
-  auto: 'Prêt automobile',
-};
-
-const statusLabels = {
-  pending: 'En attente',
-  approved: 'Approuvé',
-  rejected: 'Refusé',
-  completed: 'Complété',
-};
+const statusColors = Object.fromEntries(
+  Object.entries(loanStatusMap).map(([k, v]) => [k, `${v.bg} ${v.textColor}`])
+);
+const statusIcons = Object.fromEntries(
+  Object.entries(loanStatusMap).map(([k, v]) => [k, v.icon])
+);
+const statusLabels = Object.fromEntries(
+  Object.entries(loanStatusMap).map(([k, v]) => [k, v.label])
+);
 const LoanDetails = () => {
   const { loanId } = useParams();
   const { user } = useAuth();
@@ -163,7 +143,7 @@ const LoanDetails = () => {
   const StatusIcon = statusIcons[loan.status] || ClockIcon;
   const formattedAmount = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' }).format(loan.amount);
   const formattedDate = new Date(loan.created_at).toLocaleDateString('fr-FR');
-  const loanTypeLabel = loanTypes[loan.loan_type] || loan.loan_type;
+  const loanTypeLabel = loanTypeLabels[loan.loan_type] || loan.loan_type;
   const statusLabel = statusLabels[loan.status] || loan.status;
   const statusColor = statusColors[loan.status] || 'bg-gray-100 text-gray-800';
   
@@ -235,10 +215,7 @@ const LoanDetails = () => {
             <div className="sm:col-span-1">
               <dt className="text-sm font-medium text-gray-500">Statut</dt>
               <dd className="mt-1 text-sm">
-                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColor}`}>
-                  <StatusIcon className="mr-1.5 h-4 w-4" />
-                  {statusLabel}
-                </span>
+                <StatusBadge status={loan.status} />
               </dd>
             </div>
             <div className="sm:col-span-2">
