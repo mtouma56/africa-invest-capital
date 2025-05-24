@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 
 const Input = forwardRef(({ 
   type = 'text',
@@ -12,8 +12,9 @@ const Input = forwardRef(({
   disabled = false,
   icon,
   ...props
-}, ref) => {
-  const uniqueId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+  }, ref) => {
+    const generatedId = useId();
+    const uniqueId = id || `input-${generatedId}`;
 
   const Element = as === 'textarea' ? 'textarea' : 'input';
 

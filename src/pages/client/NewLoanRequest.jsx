@@ -3,14 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { showSuccess, showError } from '../../utils/toast';
 import { supabase } from '../../config/supabaseClient';
 import { useAuth } from '../../hooks/useAuth';
+import { loanTypeLabels } from '../../utils/constants';
 
-const loanTypes = [
-  { id: 'business', name: 'Prêt entreprise' },
-  { id: 'mortgage', name: 'Prêt immobilier' },
-  { id: 'personal', name: 'Prêt personnel' },
-  { id: 'education', name: 'Prêt éducation' },
-  { id: 'auto', name: 'Prêt automobile' },
-];
+const loanTypes = Object.entries(loanTypeLabels).map(([id, name]) => ({ id, name }));
 
 const NewLoanRequest = () => {
   const { user } = useAuth();
