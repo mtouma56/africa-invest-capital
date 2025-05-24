@@ -209,7 +209,7 @@ const NewLoanRequest = () => {
           file_size: bankStatements.file_size,
           file_url: bankStatements.file_url,
           file_path: bankStatements.file_path,
-          category: 'revenu',
+          category: 'banque',
           uploaded_at: new Date()
         }
       ];
