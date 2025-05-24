@@ -93,6 +93,11 @@ CREATE POLICY "Les utilisateurs peuvent mettre à jour leur propre profil" ON pr
 FOR UPDATE
 USING (auth.uid() = id);
 
+CREATE POLICY "Les utilisateurs peuvent créer leur profil" ON profiles
+FOR INSERT
+TO anon
+WITH CHECK (auth.uid() = id);
+
 CREATE POLICY "Les administrateurs peuvent tout voir" ON profiles
 FOR ALL
 USING (EXISTS (
