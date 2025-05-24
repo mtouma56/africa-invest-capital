@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS documents (
   file_url TEXT NOT NULL,
   file_type TEXT NOT NULL,
   file_size BIGINT NOT NULL,
-  category TEXT NOT NULL CHECK (category IN ('identite', 'revenu', 'domicile', 'professionnel', 'autre')),
+  category TEXT NOT NULL CHECK (category IN ('identite', 'revenu', 'banque', 'domicile', 'professionnel', 'autre')),
   uploaded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
