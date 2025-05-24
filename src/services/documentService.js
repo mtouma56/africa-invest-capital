@@ -22,7 +22,7 @@ export const uploadDocument = async (file, userId, loanRequestId) => {
     const { error: dbError } = await supabase
       .from('documents')
       .insert({
-        loan_request_id: loanRequestId,
+        loan_id: loanRequestId,
         user_id: userId,
         file_path: filePath,
         file_name: file.name,
@@ -47,7 +47,7 @@ export const getUserDocuments = async (userId, loanRequestId = null) => {
       .eq('user_id', userId);
     
     if (loanRequestId) {
-      query = query.eq('loan_request_id', loanRequestId);
+      query = query.eq('loan_id', loanRequestId);
     }
     
     const { data, error } = await query;

@@ -31,7 +31,7 @@ const Documents = () => {
           .from('documents')
           .select('*')
           .eq('user_id', user.id)
-          .order('created_at', { ascending: false });
+          .order('uploaded_at', { ascending: false });
         if (error) throw error;
         setDocuments(data || []);
       } catch (error) {
@@ -92,11 +92,13 @@ const Documents = () => {
         .insert([
           {
             user_id: user.id,
-            name: documentName,
-            type: documentType,
+            file_name: documentName,
+            file_type: file.type,
+            file_size: file.size,
             file_url: fileUrl,
-            storage_path: filePath,
-            created_at: new Date()
+            file_path: filePath,
+            category: documentType,
+            uploaded_at: new Date()
           }
         ]);
       if (insertError) throw insertError;
@@ -110,7 +112,7 @@ const Documents = () => {
         .from('documents')
         .select('*')
         .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+        .order('uploaded_at', { ascending: false });
       if (error) throw error;
       setDocuments(updatedDocs || []);
     } catch (error) {
@@ -262,13 +264,13 @@ const Documents = () => {
                 {documents.map((document) => (
                   <tr key={document.id}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
-                      {document.name}
+                      {document.file_name}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {documentTypes.find(t => t.id === document.type)?.name || document.type}
+                      {documentTypes.find(t => t.id === document.category)?.name || document.category}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {new Date(document.created_at).toLocaleDateString('fr-FR')}
+                      {new Date(document.uploaded_at).toLocaleDateString('fr-FR')}
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <div className="flex justify-end space-x-3">
@@ -281,7 +283,7 @@ const Documents = () => {
                           Voir
                         </a>
                         <button
-                          onClick={() => handleDelete(document.id, document.storage_path)}
+                          onClick={() => handleDelete(document.id, document.file_path)}
                           className="text-red-600 hover:text-red-900"
                           type="button"
                         >
