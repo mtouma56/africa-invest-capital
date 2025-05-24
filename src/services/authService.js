@@ -30,8 +30,8 @@ export const signUp = async (email, password, userData) => {
       const { error: profileError } = await supabase
         .from('profiles')
         .update({
-          nom: userData.nom || '',
-          prenom: userData.prenom || '',
+          first_name: userData.first_name || userData.firstName || '',
+          last_name: userData.last_name || userData.lastName || '',
           telephone: userData.telephone || '',
           adresse: userData.adresse || '',
           ville: userData.ville || '',
