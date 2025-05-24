@@ -17,12 +17,16 @@ CREATE TABLE IF NOT EXISTS profiles (
 CREATE TABLE IF NOT EXISTS loan_requests (
   id SERIAL PRIMARY KEY,
   user_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
+  loan_type TEXT,
   amount DECIMAL(15, 2) NOT NULL CHECK (amount > 0),
   purpose TEXT NOT NULL,
   description TEXT,
   duration_months INTEGER NOT NULL CHECK (duration_months > 0),
-  monthly_income DECIMAL(15, 2) NOT NULL CHECK (monthly_income > 0),
-  status TEXT NOT NULL DEFAULT 'en_attente' CHECK (status IN ('en_attente', 'en_cours', 'approuve', 'rejete')),
+  monthly_income DECIMAL(15, 2),
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected', 'completed')),
+  id_document_url TEXT,
+  income_proof_url TEXT,
+  bank_statements_url TEXT,
   assigned_to UUID REFERENCES profiles(id) ON DELETE SET NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP WITH TIME ZONE
