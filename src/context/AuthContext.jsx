@@ -44,7 +44,12 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ fullName, email, password })
       })
 
-      const data = await response.json()
+      let data
+      try {
+        data = await response.json()
+      } catch {
+        data = { error: 'Invalid server response' }
+      }
       if (!response.ok) throw new Error(data.error || 'Registration failed')
 
       // Connexion automatique après inscription

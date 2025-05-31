@@ -1,18 +1,20 @@
 /* eslint-env node */
 import { createClient } from '@supabase/supabase-js'
 
-if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  throw new Error(
-    'Missing SUPABASE_SERVICE_ROLE_KEY environment variable'
+// Initialise le client seulement si toutes les variables sont disponibles
+let supabaseAdmin = null
+if (process.env.VITE_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  supabaseAdmin = createClient(
+    process.env.VITE_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
   )
 }
 
-const supabaseAdmin = createClient(
-  process.env.VITE_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-)
-
 export default async function handler(req, res) {
+  if (!supabaseAdmin) {
+    res.status(500).json({ error: 'Server misconfigured' })
+    return
+  }
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' })
     return
