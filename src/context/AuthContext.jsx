@@ -38,39 +38,26 @@ export const AuthProvider = ({ children }) => {
   // Fonction register - ordre des arguments : (fullName, email, password)
   const register = async (fullName, email, password) => {
     try {
-      // 1. Création de l'utilisateur
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-      if (authError) throw authError;
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, password })
+      })
 
-      // 2. Création du profil utilisateur avec l'ID Supabase
-      if (authData.user) {
-        // Séparation du nom complet en prénom et nom de famille
-        const [firstName, ...rest] = fullName.split(' ');
-        const lastName = rest.join(' ');
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || 'Registration failed')
 
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert([
-            {
-              id: authData.user.id, // Lien avec l'utilisateur auth
-              email,
-              first_name: firstName,
-              last_name: lastName,
-              role: 'client', // Par défaut, ou adapte si besoin
-            },
-          ]);
-        if (profileError) throw profileError;
-      }
+      // Connexion automatique après inscription
+      const { data: loginData, error: loginError } =
+        await supabase.auth.signInWithPassword({ email, password })
+      if (loginError) throw loginError
 
-      await checkUser();
-      return { data: authData, error: null };
+      await checkUser()
+      return { data: { user: data.user, loginData }, error: null }
     } catch (error) {
-      return { data: null, error };
+      return { data: null, error }
     }
-  };
+  }
 
   const login = async (email, password) => {
     try {
