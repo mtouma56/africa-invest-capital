@@ -46,14 +46,13 @@ cd africa-invest-capital
 npm install
 # ⚠️ Ne pas ajouter manuellement la dépendance `signal-exit` dans `package.json`. Elle est installée automatiquement par les outils qui en ont besoin et son ajout explicite provoque des conflits de build, notamment sur Vercel.
 
-# Copier le fichier d'exemple et renseigner vos variables
+# Copier les fichiers d'exemple et renseigner vos variables
 cp .env.example .env
-# Éditez ensuite `.env` avec vos identifiants Supabase
-# Ajoutez aussi `SUPABASE_SERVICE_ROLE_KEY=<votre_service_key>` dans `.env.local`
-# Cette clé se trouve dans Supabase → Project Settings → API → Service Role Key.
-# Cette variable doit être définie localement et en production (par exemple via les variables d'environnement Vercel).
-# (ou dans les variables d'environnement de votre plateforme de déploiement,
-# par exemple Vercel)
+cp .env.local.example .env.local
+# Éditez ensuite `.env` et `.env.local` avec vos identifiants Supabase.
+# Le fichier `.env.local` doit contenir au moins `SUPABASE_SERVICE_ROLE_KEY`.
+# Ne commitez jamais vos vraies clés ; utilisez des variables d'environnement
+# sur votre plateforme de déploiement (ex. Vercel).
 ```
 
 ## ♿ Accessibilité
