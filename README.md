@@ -44,6 +44,7 @@ Application web complète pour Africa Invest Capital, une société financière 
 git clone https://github.com/votre-username/africa-invest-capital.git
 cd africa-invest-capital
 npm install
+# ⚠️ Ne pas ajouter manuellement la dépendance `signal-exit` dans `package.json`. Elle est installée automatiquement par les outils qui en ont besoin et son ajout explicite provoque des conflits de build, notamment sur Vercel.
 
 # Copier le fichier d'exemple et renseigner vos variables
 cp .env.example .env
