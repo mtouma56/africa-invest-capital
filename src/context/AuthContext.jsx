@@ -46,14 +46,14 @@ export const AuthProvider = ({ children }) => {
 
       const contentType = response.headers.get('content-type')
       if (!contentType || !contentType.includes('application/json')) {
-        return { data: null, error: new Error('Erreur technique : réponse du serveur invalide') }
+        return { data: null, error: new Error('Erreur serveur, veuillez contacter le support') }
       }
 
       let data
       try {
         data = await response.json()
       } catch {
-        return { data: null, error: new Error('Erreur technique : réponse du serveur invalide') }
+        return { data: null, error: new Error('Erreur serveur, veuillez contacter le support') }
       }
       if (!response.ok) throw new Error(data.error || 'Registration failed')
 

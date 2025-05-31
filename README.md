@@ -62,3 +62,36 @@ cp .env.example .env
 - Vérifier que chaque combinaison de couleurs respecte un ratio de contraste d'au moins 4.5:1.
 - Les couleurs dorées ont été ajustées (`#FFD700`) pour un meilleur contraste sur fond sombre.
 - Construire les grilles avec les classes réactives de Tailwind (`sm:`, `md:`, `lg:`) afin d'assurer une mise en page 100% responsive.
+
+## 🔌 Tester l'API
+
+Deux points de terminaison sont disponibles pour vérifier rapidement le fonctionnement des fonctions serverless :
+
+- **`/api/ping`** : renvoie toujours `{ ok: true }`.
+- **`/api/register`** : crée un utilisateur lorsque `SUPABASE_SERVICE_ROLE_KEY` est configurée.
+
+Exemples de requêtes :
+
+```bash
+# Test simple
+curl https://<votre-domaine>/api/ping
+
+# Inscription (remplacez les valeurs)
+curl -X POST https://<votre-domaine>/api/register \
+  -H 'Content-Type: application/json' \
+  -d '{"fullName":"John Doe","email":"john@example.com","password":"Secret123"}'
+```
+
+La clé **SUPABASE_SERVICE_ROLE_KEY** se trouve dans Supabase → **Settings > API > Service Role Key**. Définissez‑la dans les variables d'environnement Vercel (Project Settings › Environment Variables) pour que ces routes fonctionnent en production.
+
+Les appels à `/api/register` inscrivent une trace dans les logs Vercel grâce au `console.log` présent dans `api/register.js`.
+
+### Tests Jest
+
+Les tests unitaires utilisent Jest. Si vous obtenez une erreur liée à `signal-exit`, assurez‑vous d'installer la version 3 :
+
+```bash
+npm install signal-exit@3 --save-dev
+```
+
+Le fichier `package.json` force déjà cette version via la section `overrides`, ce qui règle le problème en CI ou en local après une nouvelle installation des dépendances.
