@@ -63,3 +63,14 @@ cp .env.example .env
 - Vérifier que chaque combinaison de couleurs respecte un ratio de contraste d'au moins 4.5:1.
 - Les couleurs dorées ont été ajustées (`#FFD700`) pour un meilleur contraste sur fond sombre.
 - Construire les grilles avec les classes réactives de Tailwind (`sm:`, `md:`, `lg:`) afin d'assurer une mise en page 100% responsive.
+
+## Preview deployments
+
+To enable preview branches on Vercel to communicate with Supabase, add the following variables in **Preview** with the same values used in **Production**:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+After saving these variables, redeploy your preview branch from the Vercel dashboard. Once the deployment is finished, registration should succeed without the "Server misconfigured" error.
+
