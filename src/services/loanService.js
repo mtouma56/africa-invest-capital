@@ -40,7 +40,7 @@ export const getLoanRequestById = async (id, isAdmin = false) => {
       .from('loan_requests')
       .select(`
         *,
-        profiles:user_id (first_name, last_name, telephone, email)
+        profiles:user_id (first_name, last_name, phone, email)
       `)
       .eq('id', id)
       .single();
@@ -96,7 +96,7 @@ export const getAllLoanRequests = async () => {
       .from('loan_requests')
       .select(`
         *,
-        profiles:user_id (first_name, last_name, telephone)
+        profiles:user_id (first_name, last_name, phone)
       `)
       .order('created_at', { ascending: false });
     
