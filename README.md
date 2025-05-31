@@ -49,6 +49,8 @@ npm install
 cp .env.example .env
 # Éditez ensuite `.env` avec vos identifiants Supabase
 # Ajoutez aussi `SUPABASE_SERVICE_ROLE_KEY=<votre_service_key>` dans `.env.local`
+# Cette clé se trouve dans Supabase → Project Settings → API → Service Role Key.
+# Cette variable doit être définie localement et en production (par exemple via les variables d'environnement Vercel).
 # (ou dans les variables d'environnement de votre plateforme de déploiement,
 # par exemple Vercel)
 ```
