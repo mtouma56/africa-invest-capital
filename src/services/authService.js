@@ -32,11 +32,11 @@ export const signUp = async (email, password, userData) => {
         .update({
           first_name: userData.first_name || userData.firstName || '',
           last_name: userData.last_name || userData.lastName || '',
-          telephone: userData.telephone || '',
-          adresse: userData.adresse || '',
-          ville: userData.ville || '',
-          pays: userData.pays || '',
-          code_postal: userData.code_postal || ''
+          phone: userData.phone || userData.telephone || '',
+          address: userData.address || userData.adresse || '',
+          city: userData.city || userData.ville || '',
+          country: userData.country || userData.pays || '',
+          postal_code: userData.postal_code || userData.code_postal || ''
         })
         .eq('id', authData.user.id);
       
