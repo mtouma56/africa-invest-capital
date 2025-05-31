@@ -11,6 +11,9 @@ if (process.env.VITE_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
 }
 
 export default async function handler(req, res) {
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return res.status(500).json({ error: 'SUPABASE_SERVICE_ROLE_KEY missing' })
+  }
   if (!supabaseAdmin) {
     res.status(500).json({ error: 'Server misconfigured' })
     return
