@@ -11,20 +11,25 @@ if (process.env.VITE_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
 }
 
 export default async function handler(req, res) {
+  console.log('Register handler invoked', { method: req.method, body: req.body })
   if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    console.log('SUPABASE_SERVICE_ROLE_KEY missing')
     return res.status(500).json({ error: 'SUPABASE_SERVICE_ROLE_KEY missing' })
   }
   if (!supabaseAdmin) {
+    console.log('Supabase admin client not initialised')
     res.status(500).json({ error: 'Server misconfigured' })
     return
   }
   if (req.method !== 'POST') {
+    console.log(`Method not allowed: ${req.method}`)
     res.status(405).json({ error: 'Method not allowed' })
     return
   }
 
   const { fullName, email, password } = req.body
   if (!fullName || !email || !password) {
+    console.log('Missing fields in request body', { fullName, email, password })
     res.status(400).json({ error: 'Missing fields' })
     return
   }
@@ -49,8 +54,10 @@ export default async function handler(req, res) {
     })
     if (profileError) throw profileError
 
+    console.log('User successfully registered', { userId: authData.user.id })
     res.status(200).json({ user: authData.user })
   } catch (error) {
+    console.error('Error during registration', error)
     res.status(500).json({ error: error.message })
   }
 }
