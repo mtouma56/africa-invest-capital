@@ -48,6 +48,9 @@ npm install
 # Copier le fichier d'exemple et renseigner vos variables
 cp .env.example .env
 # Éditez ensuite `.env` avec vos identifiants Supabase
+# Ajoutez aussi `SUPABASE_SERVICE_ROLE_KEY=<votre_service_key>` dans `.env.local`
+# (ou dans les variables d'environnement de votre plateforme de déploiement,
+# par exemple Vercel)
 ```
 
 ## ♿ Accessibilité
