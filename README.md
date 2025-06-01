@@ -63,9 +63,11 @@ cp .env.local.example .env.local
 - Les couleurs dorées ont été ajustées (`#FFD700`) pour un meilleur contraste sur fond sombre.
 - Construire les grilles avec les classes réactives de Tailwind (`sm:`, `md:`, `lg:`) afin d'assurer une mise en page 100% responsive.
 
-## Preview deployments
+## API
 
-To enable preview branches on Vercel to communicate with Supabase, add the following variables in **Preview** with the same values used in **Production**:
+- `GET /api/ping` renvoie `{ "message": "pong" }` pour tester la connectivité du backend.
+
+## Preview deployments
 
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
