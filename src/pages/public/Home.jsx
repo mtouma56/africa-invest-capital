@@ -39,7 +39,7 @@ export default function Home() {
           </div>
           <div className="bg-gris-dark rounded-premium px-6 py-5 shadow-premium hover:scale-105 hover:shadow-[0_0_15px_#C8B06366] transition-transform duration-300">
             <span className="text-or text-2xl font-bold block">4 pays</span>
-            <span className="text-or-light text-base">Zone d’intervention</span>
+            <span className="text-or-light text-base">Zone d&apos;intervention</span>
           </div>
         </div>
       </section>
@@ -51,13 +51,13 @@ export default function Home() {
           <div className="bg-[#232323] rounded-lg p-6 hover:scale-105 hover:shadow-[0_0_20px_#FFD70033] transition">
             <h3 className="text-or font-bold mb-2">Expertise locale & internationale</h3>
             <p className="text-or-light">
-              Une équipe expérimentée, un accompagnement sur-mesure pour chaque projet en Côte d’Ivoire, en Afrique et à l’international.
+              Une équipe expérimentée, un accompagnement sur-mesure pour chaque projet en Côte d&apos;Ivoire, en Afrique et à l&apos;international.
             </p>
           </div>
           <div className="bg-[#232323] rounded-lg p-6 hover:scale-105 hover:shadow-[0_0_20px_#FFD70033] transition">
             <h3 className="text-or font-bold mb-2">Solutions sur mesure</h3>
             <p className="text-or-light">
-              Du crédit classique à l’investissement, AIC vous construit un parcours adapté à vos besoins et à vos ambitions.
+              Du crédit classique à l&apos;investissement, AIC vous construit un parcours adapté à vos besoins et à vos ambitions.
             </p>
           </div>
           <div className="bg-[#232323] rounded-lg p-6 hover:scale-105 hover:shadow-[0_0_20px_#FFD70033] transition">
@@ -69,11 +69,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* APPEL À L’ACTION FINAL */}
+      {/* APPEL À L&apos;ACTION FINAL */}
       <section className="bg-or-light py-20 px-4 text-center">
         <h2 className="text-noir text-3xl font-bold mb-4">Prêt à financer votre projet ?</h2>
         <p className="text-noir text-lg mb-8">
-          Rejoignez les clients satisfaits d’Africa Invest Capital et bénéficiez d’un accompagnement premium.
+          Rejoignez les clients satisfaits d&apos;Africa Invest Capital et bénéficiez d&apos;un accompagnement premium.
         </p>
         <Link
           to="/auth/register"
