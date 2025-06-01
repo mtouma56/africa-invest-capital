@@ -1,5 +1,4 @@
 /* eslint-env node */
-/* global process */
 import { createClient } from '@supabase/supabase-js'
 
 // Initialise le client seulement si toutes les variables sont disponibles
