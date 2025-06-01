@@ -66,11 +66,20 @@ cp .env.local.example .env.local
 ## API
 
 - `GET /api/ping` renvoie `{ "message": "pong" }` pour tester la connectivité du backend.
+- `POST /api/register` crée un nouvel utilisateur via Supabase.
+
+Pour tester ces endpoints en local, lancez :
+
+```bash
+npm run dev
+```
+
+Les routes seront alors disponibles sur [http://localhost:4000](http://localhost:4000) (ou le port suivant) : `http://localhost:4000/api/ping` et `http://localhost:4000/api/register`.
 
 ## Preview deployments
 
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 
 After saving these variables, redeploy your preview branch from the Vercel dashboard. Once the deployment is finished, registration should succeed without the "Server misconfigured" error.
