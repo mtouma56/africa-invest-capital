@@ -9,14 +9,14 @@ const NotFound = () => {
           <div className="sm:ml-6">
             <div className="sm:border-l sm:border-gris-dark sm:pl-6">
               <h1 className="text-4xl font-extrabold text-or tracking-tight sm:text-5xl">Page non trouvée</h1>
-              <p className="mt-1 text-base">Désolé, nous n'avons pas pu trouver la page que vous recherchez.</p>
+              <p className="mt-1 text-base">Désolé, nous n&apos;avons pas pu trouver la page que vous recherchez.</p>
             </div>
             <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
               <Link
                 to="/"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-md bg-noir text-or hover:bg-or hover:text-noir transition"
               >
-                Retour à l'accueil
+                Retour à l&apos;accueil
               </Link>
               <Link
                 to="/contact"
