@@ -9,6 +9,7 @@ import EmptyState from '../../components/common/EmptyState';
 // Importation directe des icônes
 import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon';
 import ChevronDownIcon from '@heroicons/react/24/outline/ChevronDownIcon';
+import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
 import { loanStatusMap, loanTypeLabels } from '../../utils/constants';
 
 const statusColors = Object.fromEntries(

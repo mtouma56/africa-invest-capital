@@ -137,7 +137,7 @@ const AdminDashboard = () => {
     <div className="py-6">
       <h1 className="text-2xl font-semibold text-gray-900">Tableau de bord administrateur</h1>
       <p className="mt-1 text-sm text-gray-500">
-        Vue d'ensemble des activités et statistiques.
+        Vue d&apos;ensemble des activités et statistiques.
       </p>
 
       {/* Stats cards */}
@@ -353,7 +353,7 @@ const AdminDashboard = () => {
                     Téléphone
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Date d'inscription
+                    Date d&apos;inscription
                   </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span className="sr-only">Voir</span>
@@ -455,7 +455,7 @@ const AdminDashboard = () => {
               <div className="ml-4">
                 <h3 className="text-lg font-medium text-gray-900">Paramètres</h3>
                 <p className="text-sm text-gray-500">
-                  Configurer les paramètres de l'application.
+                  Configurer les paramètres de l&apos;application.
                 </p>
               </div>
             </div>
