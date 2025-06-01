@@ -186,7 +186,7 @@ const Dashboard = () => {
             </table>
           ) : (
             <EmptyState
-              message="Vous n'avez encore aucune demande de prêt."
+              message="Vous n&apos;avez encore aucune demande de prêt."
               action={
                 <Link to="/client/demande-pret" className="mt-2 inline-flex text-primary hover:text-primary-dark">
                   Faire votre première demande
@@ -219,7 +219,7 @@ const Dashboard = () => {
                     Type
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Date d'ajout
+                    Date d&apos;ajout
                   </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span className="sr-only">Télécharger</span>
@@ -254,7 +254,7 @@ const Dashboard = () => {
             </table>
           ) : (
             <EmptyState
-              message="Vous n'avez encore aucun document."
+              message="Vous n&apos;avez encore aucun document."
               action={
                 <Link to="/client/documents" className="mt-2 inline-flex text-primary hover:text-primary-dark">
                   Ajouter vos documents

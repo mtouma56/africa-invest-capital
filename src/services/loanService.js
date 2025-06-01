@@ -34,7 +34,7 @@ export const getUserLoanRequests = async (userId) => {
   }
 };
 
-export const getLoanRequestById = async (id, isAdmin = false) => {
+export const getLoanRequestById = async (id) => {
   try {
     const { data, error } = await supabase
       .from('loan_requests')

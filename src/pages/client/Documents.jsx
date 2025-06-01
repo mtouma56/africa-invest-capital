@@ -253,7 +253,7 @@ const Documents = () => {
                     Type
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Date d'ajout
+                    Date d&apos;ajout
                   </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span className="sr-only">Actions</span>
@@ -296,7 +296,7 @@ const Documents = () => {
               </tbody>
             </table>
           ) : (
-            <EmptyState message="Vous n'avez encore aucun document." />
+            <EmptyState message="Vous n&apos;avez encore aucun document." />
           )}
         </div>
       </div>

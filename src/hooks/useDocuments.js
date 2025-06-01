@@ -33,7 +33,7 @@ export const useDocuments = () => {
       }
 
       // Uploader le fichier avec suivi de progression
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from('uploads')
         .upload(filePath, file, {
           cacheControl: '3600',
