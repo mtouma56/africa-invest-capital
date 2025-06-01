@@ -372,7 +372,7 @@ const NewLoanRequest = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Pièce d'identité *</label>
+                    <label className="block text-sm font-medium text-gray-700">Pièce d&apos;identité *</label>
                   <div className="mt-1 flex items-center">
                     <div className="flex-grow">
                       {idDocument ? (
@@ -395,7 +395,7 @@ const NewLoanRequest = () => {
                               </label>
                               <p className="pl-1">ou glisser-déposer</p>
                             </div>
-                            <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu'à 10MB</p>
+                              <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu&apos;à 10MB</p>
                           </div>
                         </div>
                       )}
@@ -436,7 +436,7 @@ const NewLoanRequest = () => {
                               </label>
                               <p className="pl-1">ou glisser-déposer</p>
                             </div>
-                            <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu'à 10MB</p>
+                              <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu&apos;à 10MB</p>
                           </div>
                         </div>
                       )}
@@ -477,7 +477,7 @@ const NewLoanRequest = () => {
                               </label>
                               <p className="pl-1">ou glisser-déposer</p>
                             </div>
-                            <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu'à 10MB</p>
+                              <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu&apos;à 10MB</p>
                           </div>
                         </div>
                       )}

@@ -192,7 +192,7 @@ const Contact = () => {
                 <h3 className="text-lg font-bold text-or">Bureau de Lomé</h3>
                 <div className="mt-3">
                   <p className="text-base text-or-light">
-                    789 Boulevard de l'Indépendance<br />
+                    789 Boulevard de l&apos;Indépendance<br />
                     Lomé<br />
                     Togo
                   </p>
@@ -218,7 +218,7 @@ const Contact = () => {
         <div className="bg-[#232323] rounded-xl shadow-lg max-w-4xl mx-auto mt-12 mb-16 p-8">
           <h2 className="text-center text-3xl font-extrabold text-or">Trouvez-nous</h2>
           <p className="mt-4 text-center text-lg text-or-light">
-            Visitez l'un de nos bureaux en Afrique de l'Ouest
+            Visitez l&apos;un de nos bureaux en Afrique de l&apos;Ouest
           </p>
           <div className="mt-10 h-96 rounded-lg overflow-hidden shadow-lg">
             <iframe
