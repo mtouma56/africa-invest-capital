@@ -42,7 +42,7 @@ const LoanDetails = () => {
         if (loanError) throw loanError;
         
         if (!loanData) {
-          setError('Prêt non trouvé ou vous n\'avez pas les permissions nécessaires');
+          setError('Prêt non trouvé ou vous n&apos;avez pas les permissions nécessaires');
           return;
         }
         
@@ -175,14 +175,14 @@ const LoanDetails = () => {
             <h3 className={`text-sm font-medium ${loan.status === 'approved' ? 'text-green-800' : loan.status === 'rejected' ? 'text-red-800' : 'text-yellow-800'}`}>
               {loan.status === 'approved' && 'Demande approuvée'}
               {loan.status === 'rejected' && 'Demande refusée'}
-              {loan.status === 'pending' && 'Demande en cours d\'examen'}
+              {loan.status === 'pending' && 'Demande en cours d&apos;examen'}
               {loan.status === 'completed' && 'Prêt complété'}
             </h3>
             <div className="mt-2 text-sm">
               <p className={`${loan.status === 'approved' ? 'text-green-700' : loan.status === 'rejected' ? 'text-red-700' : 'text-yellow-700'}`}>
                 {loan.status === 'approved' && 'Votre demande de prêt a été approuvée. Un conseiller vous contactera prochainement pour finaliser la procédure.'}
-                {loan.status === 'rejected' && (loan.rejection_reason || 'Votre demande de prêt a été refusée. Pour plus d\'informations, veuillez contacter notre service client.')}
-                {loan.status === 'pending' && 'Votre demande est en cours d\'examen par notre équipe. Nous vous contacterons dès que possible.'}
+                {loan.status === 'rejected' && (loan.rejection_reason || 'Votre demande de prêt a été refusée. Pour plus d&apos;informations, veuillez contacter notre service client.')}
+                {loan.status === 'pending' && 'Votre demande est en cours d&apos;examen par notre équipe. Nous vous contacterons dès que possible.'}
                 {loan.status === 'completed' && 'Le prêt a été entièrement remboursé. Nous vous remercions pour votre confiance.'}
               </p>
             </div>
@@ -345,7 +345,7 @@ const LoanDetails = () => {
                           </>
                         )}
                         {activity.type === 'comment' && activity.comment}
-                        {activity.type === 'document_added' && `Document ajouté: ${activity.document_name || 'Sans nom'}`}
+                        {activity.type === 'document_added' && <>Document ajouté: {activity.document_name || 'Sans nom'}</>}
                       </p>
                       <p className="mt-1 text-sm text-gray-500">
                         {new Date(activity.created_at).toLocaleString('fr-FR')}

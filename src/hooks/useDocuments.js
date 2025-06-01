@@ -6,7 +6,7 @@ export const useDocuments = () => {
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const uploadDocument = async (file, userId, loanId, category) => {
+  const uploadDocument = async (file, userId, loanRequestId, category) => {
     try {
       setUploading(true);
       setProgress(0);
@@ -17,7 +17,7 @@ export const useDocuments = () => {
 
       // Créer un nom de fichier unique
       const fileExt = file.name.split('.').pop();
-      const fileName = `${userId}/${loanId}/${category}/${uuidv4()}.${fileExt}`;
+      const fileName = `${userId}/${loanRequestId}/${category}/${uuidv4()}.${fileExt}`;
       const filePath = `documents/${fileName}`;
 
       // Vérifier la taille du fichier (limite à 10MB)
@@ -32,14 +32,11 @@ export const useDocuments = () => {
         throw new Error('Type de fichier non autorisé');
       }
 
-      // Uploader le fichier avec suivi de progression
+      // Uploader le fichier sans suivi de progression (Supabase ne supporte pas onUploadProgress)
       const { error: uploadError } = await supabase.storage
-        .from('uploads')
+        .from('documents')
         .upload(filePath, file, {
           cacheControl: '3600',
-          onUploadProgress: (progress) => {
-            setProgress(Math.round((progress.loaded / progress.total) * 100));
-          },
         });
 
       if (uploadError) {
@@ -47,8 +44,8 @@ export const useDocuments = () => {
       }
 
       // Récupérer l'URL du fichier
-      const { data: urlData } = await supabase.storage
-        .from('uploads')
+      const { data: urlData } = supabase.storage
+        .from('documents')
         .getPublicUrl(filePath);
 
       // Enregistrer le document dans la base de données
@@ -57,7 +54,7 @@ export const useDocuments = () => {
         .insert([
           {
             user_id: userId,
-            loan_id: loanId,
+            loan_request_id: loanRequestId,
             file_name: file.name,
             file_path: filePath,
             file_type: fileExt,
@@ -81,7 +78,7 @@ export const useDocuments = () => {
     }
   };
 
-  const uploadCameraCapture = async (imageBlob, userId, loanId, category) => {
+  const uploadCameraCapture = async (imageBlob, userId, loanRequestId, category) => {
     try {
       setUploading(true);
       setProgress(0);
@@ -89,18 +86,18 @@ export const useDocuments = () => {
       // Convertir le Blob en File
       const file = new File([imageBlob], `camera-capture-${Date.now()}.jpg`, { type: 'image/jpeg' });
       
-      return await uploadDocument(file, userId, loanId, category);
+      return await uploadDocument(file, userId, loanRequestId, category);
     } catch (error) {
       return { data: null, error: error.message || 'Erreur lors de la capture caméra' };
     }
   };
 
-  const getDocumentsByLoan = async (loanId) => {
+  const getDocumentsByLoan = async (loanRequestId) => {
     try {
       const { data, error } = await supabase
         .from('documents')
         .select('*')
-        .eq('loan_id', loanId)
+        .eq('loan_request_id', loanRequestId)
         .order('uploaded_at', { ascending: false });
 
       if (error) {
@@ -135,7 +132,7 @@ export const useDocuments = () => {
     try {
       // Supprimer le fichier du stockage
       const { error: storageError } = await supabase.storage
-        .from('uploads')
+        .from('documents')
         .remove([filePath]);
 
       if (storageError) {

@@ -55,7 +55,7 @@ export const getLoanRequestById = async (id) => {
 
 export const updateLoanRequestStatus = async (id, status, notes = null) => {
   try {
-    const updateData = { statut: status };
+    const updateData = { status: status };
     if (notes !== null) {
       updateData.notes_admin = notes;
     }
