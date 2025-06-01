@@ -1,11 +1,12 @@
 /* eslint-env node */
+/* global process */
 import { createClient } from '@supabase/supabase-js'
 
 // Initialise le client seulement si toutes les variables sont disponibles
 let supabaseAdmin = null
-if (process.env.VITE_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
   supabaseAdmin = createClient(
-    process.env.VITE_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
   )
 }
