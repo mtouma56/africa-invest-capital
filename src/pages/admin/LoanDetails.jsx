@@ -485,12 +485,12 @@ const LoanDetails = () => {
                   }}
                   fullWidth
                 >
-                  Modifier l'assignation
+                  Modifier l&apos;assignation
                 </Button>
               </div>
             ) : (
               <div>
-                <p className="text-center text-gray-500 mb-4">Cette demande n'est pas encore assignée</p>
+                <p className="text-center text-gray-500 mb-4">Cette demande n&apos;est pas encore assignée</p>
                 <Button 
                   variant="primary" 
                   size="sm"
@@ -617,7 +617,7 @@ const LoanDetails = () => {
             onChange={() => setAssignedTo(assignedTo ? '' : loan.assigned_to || '')}
           />
           <label htmlFor="remove-assignation" className="ml-2 block text-sm text-gray-900">
-            Retirer l'assignation actuelle
+            Retirer l&apos;assignation actuelle
           </label>
         </div>
       </Modal>
