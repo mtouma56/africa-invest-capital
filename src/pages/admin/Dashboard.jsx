@@ -4,12 +4,14 @@ import { supabase } from '../../config/supabaseClient';
 import { useAuth } from '../../hooks/useAuth';
 
 // Importation directe des icônes
-import UsersIcon from '@heroicons/react/24/outline/UsersIcon';
-import CurrencyDollarIcon from '@heroicons/react/24/outline/CurrencyDollarIcon';
-import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon';
-import ClockIcon from '@heroicons/react/24/outline/ClockIcon';
-import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon';
-import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
+import {
+  UsersIcon,
+  CurrencyDollarIcon,
+  DocumentTextIcon,
+  ClockIcon,
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+} from '@heroicons/react/24/outline';
 
 const statusColors = {
   pending: 'bg-yellow-100 text-yellow-800',

@@ -1,6 +1,8 @@
-import ClockIcon from '@heroicons/react/24/outline/ClockIcon';
-import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon';
-import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
+import {
+  ClockIcon,
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+} from '@heroicons/react/24/outline';
 
 export const loanStatusMap = {
   pending: {
