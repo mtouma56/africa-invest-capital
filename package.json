@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview --host",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint -c eslint.flat.config.js . --report-unused-disable-directives --max-warnings 0",
     "mac-watchfs": "echo '999999' | sudo tee /proc/sys/fs/inotify/max_user_watches",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config src/jest.config.js"
   },
