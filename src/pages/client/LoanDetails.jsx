@@ -21,18 +21,18 @@ const statusLabels = Object.fromEntries(
 const LoanDetails = () => {
   const { loanId } = useParams();
   const { user } = useAuth();
-  
+
   const [loan, setLoan] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     const fetchLoanDetails = async () => {
       try {
         setLoading(true);
-        
+
         // Récupérer les détails du prêt
         const { data: loanData, error: loanError } = await supabase
         .from('loan_requests')
@@ -40,38 +40,38 @@ const LoanDetails = () => {
           .eq('id', loanId)
           .eq('user_id', user.id)
           .single();
-        
+
         if (loanError) throw loanError;
-        
+
         if (!loanData) {
           setError('Prêt non trouvé ou vous n&apos;avez pas les permissions nécessaires');
           return;
         }
-        
+
         setLoan(loanData);
-        
+
         // Récupérer les documents associés
         const { data: docsData, error: docsError } = await supabase
           .from('documents')
           .select('*')
           .eq('loan_id', loanId)
           .order('created_at', { ascending: false });
-        
+
         if (docsError) throw docsError;
-        
+
         setDocuments(docsData || []);
-        
+
         // Récupérer l'historique des activités
         const { data: activityData, error: activityError } = await supabase
           .from('loan_activities')
           .select('*')
           .eq('loan_id', loanId)
           .order('created_at', { ascending: false });
-        
+
         if (activityError) throw activityError;
-        
+
         setActivities(activityData || []);
-        
+
       } catch (error) {
         console.error('Erreur lors du chargement des détails du prêt:', error);
         setError('Impossible de charger les détails du prêt');
@@ -79,7 +79,7 @@ const LoanDetails = () => {
         setLoading(false);
       }
     };
-    
+
     if (user && loanId) {
       fetchLoanDetails();
     }
@@ -91,7 +91,7 @@ const LoanDetails = () => {
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className="rounded-md bg-red-50 p-4">
@@ -116,7 +116,7 @@ const LoanDetails = () => {
       </div>
     );
   }
-  
+
   if (!loan) {
     return (
       <div className="rounded-md bg-yellow-50 p-4">
@@ -146,7 +146,7 @@ const LoanDetails = () => {
   const formattedAmount = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' }).format(loan.amount);
   const formattedDate = new Date(loan.created_at).toLocaleDateString('fr-FR');
   const loanTypeLabel = loanTypeLabels[loan.loan_type] || loan.loan_type;
-  
+
   return (
     <div className="py-6">
       <div className="flex items-center justify-between">
@@ -163,14 +163,14 @@ const LoanDetails = () => {
           Retour
         </Link>
       </div>
-      
+
       {/* Status banner */}
       <div className={`mt-6 rounded-md p-4 ${loan.status === 'approved' ? 'bg-green-50' : loan.status === 'rejected' ? 'bg-red-50' : 'bg-yellow-50'}`}>
         <div className="flex">
           <div className="flex-shrink-0">
-            <StatusIcon 
-              className={`h-5 w-5 ${loan.status === 'approved' ? 'text-green-400' : loan.status === 'rejected' ? 'text-red-400' : 'text-yellow-400'}`} 
-              aria-hidden="true" 
+            <StatusIcon
+              className={`h-5 w-5 ${loan.status === 'approved' ? 'text-green-400' : loan.status === 'rejected' ? 'text-red-400' : 'text-yellow-400'}`}
+              aria-hidden="true"
             />
           </div>
           <div className="ml-3">
@@ -191,7 +191,7 @@ const LoanDetails = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Loan details */}
       <div className="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
@@ -247,7 +247,7 @@ const LoanDetails = () => {
           </dl>
         </div>
       </div>
-      
+
       {/* Documents */}
       <div className="mt-8">
         <h2 className="text-lg font-medium text-gray-900">Documents associés</h2>
@@ -283,10 +283,10 @@ const LoanDetails = () => {
                       {new Date(document.uploaded_at).toLocaleDateString('fr-FR')}
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                      <a 
-                        href={document.file_url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                      <a
+                        href={document.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-primary hover:text-primary-dark"
                       >
                         Voir
@@ -303,7 +303,7 @@ const LoanDetails = () => {
           )}
         </div>
       </div>
-      
+
       {/* Activity history */}
       <div className="mt-8">
         <h2 className="text-lg font-medium text-gray-900">Historique</h2>
@@ -316,7 +316,7 @@ const LoanDetails = () => {
                     <div className="flex-shrink-0">
                       {activity.type === 'status_change' && (
                         <div className={`h-8 w-8 rounded-full flex items-center justify-center ${
-                          activity.new_value === 'approved' ? 'bg-green-100' : 
+                          activity.new_value === 'approved' ? 'bg-green-100' :
                           activity.new_value === 'rejected' ? 'bg-red-100' : 'bg-blue-100'
                         }`}>
                           {activity.new_value === 'approved' && <CheckCircleIcon className="h-5 w-5 text-green-500" />}

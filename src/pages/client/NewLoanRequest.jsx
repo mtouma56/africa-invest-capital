@@ -10,53 +10,53 @@ const loanTypes = Object.entries(loanTypeLabels).map(([id, name]) => ({ id, name
 const NewLoanRequest = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  
+
   const [loanType, setLoanType] = useState('');
   const [amount, setAmount] = useState('');
   const [duration, setDuration] = useState('');
   const [purpose, setPurpose] = useState('');
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
-  
+
   // État pour le téléchargement de fichiers
   const [idDocument, setIdDocument] = useState(null);
   const [proofOfIncome, setProofOfIncome] = useState(null);
   const [bankStatements, setBankStatements] = useState(null);
-  
+
   // État pour suivre les téléchargements en cours
   const [uploading, setUploading] = useState({
     id: false,
     income: false,
     bank: false,
   });
-  
+
   const handleFileUpload = async (event, type) => {
     const file = event.target.files[0];
     if (!file) return;
-    
+
     // Mettre à jour l'état d'upload correspondant
     setUploading(prev => ({ ...prev, [type]: true }));
-    
+
     try {
       // Générer un nom de fichier unique
       const fileExt = file.name.split('.').pop();
       const fileName = `${user.id}/${Date.now()}.${fileExt}`;
       const filePath = `documents/${fileName}`;
-      
+
       // Télécharger le fichier dans le bucket "documents"
       const { error: uploadError } = await supabase.storage
         .from('uploads')
         .upload(filePath, file);
-      
+
       if (uploadError) throw uploadError;
-      
+
       // Obtenir l'URL du fichier
       const { data } = await supabase.storage
         .from('uploads')
         .getPublicUrl(filePath);
-      
+
       const fileUrl = data.publicUrl;
-      
+
       // Mettre à jour l'état correspondant
       switch (type) {
         case 'id':
@@ -89,7 +89,7 @@ const NewLoanRequest = () => {
         default:
           break;
       }
-      
+
       showSuccess(`${file.name} téléchargé avec succès`);
     } catch (error) {
       showError(`Erreur lors du téléchargement: ${error.message}`);
@@ -99,7 +99,7 @@ const NewLoanRequest = () => {
       setUploading(prev => ({ ...prev, [type]: false }));
     }
   };
-  
+
   const validateStep1 = () => {
     if (!loanType) {
       showError('Veuillez sélectionner un type de prêt');
@@ -119,7 +119,7 @@ const NewLoanRequest = () => {
     }
     return true;
   };
-  
+
   const validateStep2 = () => {
     if (!idDocument) {
       showError('Veuillez télécharger une pièce d&apos;identité');
@@ -135,26 +135,26 @@ const NewLoanRequest = () => {
     }
     return true;
   };
-  
+
   const handleNextStep = () => {
     if (step === 1 && validateStep1()) {
       setStep(2);
     }
   };
-  
+
   const handlePreviousStep = () => {
     if (step > 1) {
       setStep(step - 1);
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateStep2()) return;
-    
+
     setLoading(true);
-    
+
     try {
       // Enregistrer la demande de prêt
       const { data, error } = await supabase
@@ -174,9 +174,9 @@ const NewLoanRequest = () => {
           }
         ])
         .select();
-      
+
       if (error) throw error;
-      
+
       // Créer des entrées dans la table documents pour chaque document
       const documents = [
         {
@@ -213,16 +213,16 @@ const NewLoanRequest = () => {
           uploaded_at: new Date()
         }
       ];
-      
+
       const { error: docsError } = await supabase
         .from('documents')
         .insert(documents);
-      
+
       if (docsError) throw docsError;
-      
+
       showSuccess('Demande de prêt soumise avec succès');
       navigate('/client');
-      
+
         } catch (error) {
       showError(`Erreur lors de la soumission: ${error.message}`);
       console.error('Erreur de soumission:', error);
@@ -296,7 +296,7 @@ const NewLoanRequest = () => {
                     ))}
                   </select>
                 </div>
-                
+
                 <div>
                   <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
                     Montant (FCFA) *
@@ -313,7 +313,7 @@ const NewLoanRequest = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="duration" className="block text-sm font-medium text-gray-700">
                     Durée (mois) *
@@ -330,7 +330,7 @@ const NewLoanRequest = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="sm:col-span-2">
                   <label htmlFor="purpose" className="block text-sm font-medium text-gray-700">
                     Objet du prêt *
@@ -348,7 +348,7 @@ const NewLoanRequest = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="mt-5 flex justify-end">
                 <button
                   type="button"
@@ -370,7 +370,7 @@ const NewLoanRequest = () => {
                     Veuillez télécharger les documents suivants pour compléter votre demande de prêt.
                   </p>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Pièce d&apos;identité *</label>
                   <div className="mt-1 flex items-center">
@@ -411,7 +411,7 @@ const NewLoanRequest = () => {
                     )}
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Justificatif de revenu *</label>
                   <div className="mt-1 flex items-center">
@@ -452,7 +452,7 @@ const NewLoanRequest = () => {
                     )}
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Relevés bancaires (3 derniers mois) *</label>
                   <div className="mt-1 flex items-center">
@@ -494,7 +494,7 @@ const NewLoanRequest = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="mt-8 flex justify-between">
                 <button
                   type="button"

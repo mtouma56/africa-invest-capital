@@ -18,7 +18,7 @@ const Documents = () => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
-  
+
   const [documentName, setDocumentName] = useState('');
   const [documentType, setDocumentType] = useState('');
   const [file, setFile] = useState(null);
@@ -45,7 +45,7 @@ const Documents = () => {
       fetchDocuments();
     }
   }, [user]);
-  
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
@@ -55,7 +55,7 @@ const Documents = () => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    
+
     if (!documentName.trim()) {
       showError('Veuillez entrer un nom pour le document');
       return;
@@ -68,9 +68,9 @@ const Documents = () => {
       showError('Veuillez sélectionner un fichier');
       return;
     }
-    
+
     setUploading(true);
-    
+
     try {
       // Générer un nom de fichier unique
       const fileExt = file.name.split('.').pop();
@@ -274,10 +274,10 @@ const Documents = () => {
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <div className="flex justify-end space-x-3">
-                        <a 
-                          href={document.file_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
+                        <a
+                          href={document.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-primary hover:text-primary-dark"
                         >
                           Voir

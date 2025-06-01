@@ -21,20 +21,20 @@ const ClientDetails = () => {
     const fetchClientDetails = async () => {
       try {
         setLoading(true);
-        
+
         // Charger les informations du client
         const { data: clientData, error: clientError } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', clientId)
           .single();
-        
+
         if (clientError) {
           throw clientError;
         }
-        
+
         setClient(clientData);
-        
+
         // Charger les prêts du client
         const { data: loansData, error: loansError } = await supabase
           .from('loan_requests')
@@ -48,26 +48,26 @@ const ClientDetails = () => {
           `)
           .eq('user_id', clientId)
           .order('created_at', { ascending: false });
-        
+
         if (loansError) {
           throw loansError;
         }
-        
+
         setLoans(loansData || []);
-        
+
         // Charger les documents du client
         const { data: documentsData, error: documentsError } = await supabase
           .from('documents')
           .select('*')
           .eq('user_id', clientId)
           .order('uploaded_at', { ascending: false });
-        
+
         if (documentsError) {
           throw documentsError;
         }
-        
+
         setDocuments(documentsData || []);
-        
+
       } catch (err) {
         console.error('Erreur lors du chargement des détails du client:', err);
         setError(err.message);
@@ -75,7 +75,7 @@ const ClientDetails = () => {
         setLoading(false);
       }
     };
-    
+
     fetchClientDetails();
   }, [clientId]);
 
@@ -87,7 +87,7 @@ const ClientDetails = () => {
     return (
       <div className="text-center py-8">
         <p className="text-red-500">Erreur lors du chargement des détails du client.</p>
-        <Button 
+        <Button
           variant="primary"
           onClick={() => navigate('/admin/clients')}
           className="mt-4"
@@ -111,12 +111,12 @@ const ClientDetails = () => {
           Retour
         </Button>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {/* Demandes de prêt */}
-          <Card 
-            title="Demandes de prêts" 
+          <Card
+            title="Demandes de prêts"
             subtitle={`${loans.length} demandes au total`}
           >
             {loans.length > 0 ? (
@@ -178,7 +178,7 @@ const ClientDetails = () => {
               </div>
             )}
           </Card>
-          
+
           {/* Documents */}
           <Card title="Documents" subtitle={`${documents.length} documents au total`}>
             {documents.length > 0 ? (
@@ -224,9 +224,9 @@ const ClientDetails = () => {
                           {formatDate(doc.uploaded_at)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <a 
-                            href={doc.file_url} 
-                            target="_blank" 
+                          <a
+                            href={doc.file_url}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-primary hover:text-primary-dark"
                           >
@@ -245,7 +245,7 @@ const ClientDetails = () => {
             )}
           </Card>
         </div>
-        
+
         {/* Infos client */}
         <div>
           <Card title="Informations du client">
@@ -258,25 +258,25 @@ const ClientDetails = () => {
                 <p className="text-gray-500">{client.email}</p>
               </div>
             </div>
-            
+
             <div className="space-y-4">
               <div>
                 <p className="text-sm font-medium text-gray-500">Téléphone</p>
                 <p className="mt-1 font-medium">{client.phone || 'Non renseigné'}</p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Adresse</p>
                 <p className="mt-1">{client.address || 'Non renseignée'}</p>
               </div>
-              
+
               <div>
                   <p className="text-sm font-medium text-gray-500">Date d&apos;inscription</p>
                 <p className="mt-1">{formatDate(client.created_at)}</p>
               </div>
             </div>
           </Card>
-          
+
           <div className="mt-6">
             <Card title="Résumé">
               <div className="space-y-4">
@@ -284,14 +284,14 @@ const ClientDetails = () => {
                   <p className="text-sm font-medium text-gray-500">Nombre total de demandes</p>
                   <p className="mt-1 text-lg font-semibold">{loans.length}</p>
                 </div>
-                
+
                 <div>
                   <p className="text-sm font-medium text-gray-500">Montant total demandé</p>
                   <p className="mt-1 font-semibold">
                     {formatCurrency(loans.reduce((sum, loan) => sum + loan.amount, 0))}
                   </p>
                 </div>
-                
+
                 <div>
                   <p className="text-sm font-medium text-gray-500">Demandes par statut</p>
                   <div className="mt-1 flex gap-2 flex-wrap">
@@ -309,7 +309,7 @@ const ClientDetails = () => {
                     </span>
                   </div>
                 </div>
-                
+
                 <div>
                   <p className="text-sm font-medium text-gray-500">Documents téléversés</p>
                   <p className="mt-1">{documents.length} documents</p>

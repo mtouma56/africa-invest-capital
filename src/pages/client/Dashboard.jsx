@@ -155,7 +155,7 @@ const Dashboard = () => {
               <tbody className="divide-y divide-gray-200 bg-white">
                 {loans.slice(0, 5).map((loan) => {
                   const StatusIcon = statusIcons[loan.status] || ClockIcon;
-                  
+
                   return (
                     <tr key={loan.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
@@ -241,10 +241,10 @@ const Dashboard = () => {
                       {new Date(document.uploaded_at).toLocaleDateString('fr-FR')}
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                      <a 
-                        href={document.file_url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                      <a
+                        href={document.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-primary hover:text-primary-dark"
                       >
                         Télécharger
