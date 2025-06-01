@@ -211,7 +211,7 @@ const Documents = () => {
                       </label>
                       <p className="pl-1">ou glisser-déposer</p>
                     </div>
-                    <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu'à 10MB</p>
+                    <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu&apos;à 10MB</p>
                     {file && (
                       <p className="text-sm text-primary mt-2">
                         Fichier sélectionné: {file.name}

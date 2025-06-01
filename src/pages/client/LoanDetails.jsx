@@ -235,7 +235,7 @@ const LoanDetails = () => {
             )}
             {loan.interest_rate && (
               <div className="sm:col-span-1">
-                <dt className="text-sm font-medium text-gray-500">Taux d'intérêt</dt>
+                <dt className="text-sm font-medium text-gray-500">Taux d&apos;intérêt</dt>
                 <dd className="mt-1 text-sm text-gray-900">{loan.interest_rate}%</dd>
               </div>
             )}

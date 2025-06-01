@@ -45,7 +45,7 @@ const Services = () => {
                 <div className="mt-5">
                   <h3 className="text-lg uppercase tracking-wide font-bold text-or">Prêts immobiliers</h3>
                   <p className="mt-2 text-base text-or-light drop-shadow">
-                    Financez l'acquisition ou la construction de votre bien immobilier avec nos solutions de prêt immobilier adaptées à vos besoins. Taux compétitifs et durées flexibles.
+                    Financez l&apos;acquisition ou la construction de votre bien immobilier avec nos solutions de prêt immobilier adaptées à vos besoins. Taux compétitifs et durées flexibles.
                   </p>
                   <div className="mt-4">
                     <Link to="/auth/login" className="text-or hover:text-or-light font-bold hover:underline transition underline">
@@ -67,7 +67,7 @@ const Services = () => {
                 <div className="mt-5">
                   <h3 className="text-lg uppercase tracking-wide font-bold text-or">Prêts aux entreprises</h3>
                   <p className="mt-2 text-base text-or-light drop-shadow">
-                    Des solutions de financement pour les entreprises de toutes tailles, des startups aux grandes entreprises, pour soutenir la croissance, le fonds de roulement ou l'investissement.
+                    Des solutions de financement pour les entreprises de toutes tailles, des startups aux grandes entreprises, pour soutenir la croissance, le fonds de roulement ou l&apos;investissement.
                   </p>
                   <div className="mt-4">
                     <Link to="/auth/login" className="text-or hover:text-or-light font-bold hover:underline transition underline">
@@ -195,7 +195,7 @@ const Services = () => {
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
           <h2 className="text-3xl font-extrabold tracking-tight text-noir sm:text-4xl">
             <span className="block">Prêt à concrétiser vos projets ?</span>
-            <span className="block text-or-light">Créez un compte ou contactez-nous dès aujourd'hui.</span>
+            <span className="block text-or-light">Créez un compte ou contactez-nous dès aujourd&apos;hui.</span>
           </h2>
           <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
             <div className="inline-flex rounded-md shadow">
