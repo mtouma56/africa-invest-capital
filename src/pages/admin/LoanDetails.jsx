@@ -47,14 +47,14 @@ const LoanDetails = () => {
           setError(`Erreur lors du chargement des données: ${error}`);
           return;
         }
-        
+
         if (data) {
           setLoan(data);
           if (data.documents) {
             setDocuments(data.documents);
           }
         }
-        
+
         // Charger les notes
         const { data: notesData, error: notesError } = await getLoanNotes(loanId);
         if (notesError) {
@@ -64,7 +64,7 @@ const LoanDetails = () => {
         }
       }
     };
-    
+
     fetchLoanData();
   }, [loanId, user, getLoanById, getLoanNotes]);
 
@@ -72,18 +72,18 @@ const LoanDetails = () => {
     try {
       setIsSubmittingStatus(true);
       setError('');
-      
+
       const { error } = await updateLoanStatus(loanId, selectedStatus);
-      
+
       if (error) {
         setError(`Erreur lors de la mise à jour du statut: ${error}`);
         return;
       }
-      
+
       setLoan({ ...loan, status: selectedStatus });
       setSuccess(`Le statut de la demande a été mis à jour avec succès à "${statusLabels[selectedStatus].label}"`);
       setIsStatusModalOpen(false);
-      
+
     } catch (err) {
       setError('Une erreur est survenue lors de la mise à jour du statut.');
       console.error('Erreur de mise à jour du statut:', err);
@@ -96,23 +96,23 @@ const LoanDetails = () => {
     try {
       setIsSubmittingAssign(true);
       setError('');
-      
+
       const { error } = await assignLoan(loanId, assignedTo || null);
-      
+
       if (error) {
         setError(`Erreur lors de l'attribution: ${error}`);
         return;
       }
-      
+
       // Rafraîchir les données
       const { data: refreshedData } = await getLoanById(loanId);
       if (refreshedData) {
         setLoan(refreshedData);
       }
-      
+
       setSuccess('La demande a été attribuée avec succès');
       setIsAssignModalOpen(false);
-      
+
     } catch (err) {
       setError('Une erreur est survenue lors de l\'attribution.');
       console.error('Erreur d\'attribution:', err);
@@ -127,27 +127,27 @@ const LoanDetails = () => {
         setError('Veuillez entrer une note');
         return;
       }
-      
+
       setIsSubmittingNote(true);
       setError('');
-      
+
       const { error } = await addNote(loanId, noteText, user.id);
-      
+
       if (error) {
         setError(`Erreur lors de l'ajout de la note: ${error}`);
         return;
       }
-      
+
       // Rafraîchir les notes
       const { data: notesData } = await getLoanNotes(loanId);
       if (notesData) {
         setNotes(notesData);
       }
-      
+
       setSuccess('Note ajoutée avec succès');
       setIsNoteModalOpen(false);
       setNoteText('');
-      
+
     } catch (err) {
       setError('Une erreur est survenue lors de l\'ajout de la note.');
       console.error('Erreur d\'ajout de note:', err);
@@ -164,7 +164,7 @@ const LoanDetails = () => {
     return (
       <div className="text-center py-8">
         <p>Aucune information disponible pour cette demande de prêt.</p>
-        <Button 
+        <Button
           variant="primary"
           onClick={() => navigate('/admin/prets')}
           className="mt-4"
@@ -188,28 +188,28 @@ const LoanDetails = () => {
           Retour
         </Button>
       </div>
-      
+
       {error && (
-        <Alert 
-          type="error" 
-          message={error} 
+        <Alert
+          type="error"
+          message={error}
           dismissible={true}
           onClose={() => setError('')}
         />
       )}
-      
+
       {success && (
-        <Alert 
-          type="success" 
-          message={success} 
+        <Alert
+          type="success"
+          message={success}
           dismissible={true}
           onClose={() => setSuccess('')}
         />
       )}
-      
+
       {/* Actions */}
       <div className="flex flex-wrap gap-2">
-        <Button 
+        <Button
           variant={loan.status === 'en_attente' ? 'primary' : 'outline'}
           onClick={() => {
             setSelectedStatus('en_cours');
@@ -219,7 +219,7 @@ const LoanDetails = () => {
         >
           Mettre en cours
         </Button>
-        <Button 
+        <Button
           variant="outline"
           className="bg-green-50 text-green-700 border-green-300 hover:bg-green-100"
           onClick={() => {
@@ -230,7 +230,7 @@ const LoanDetails = () => {
         >
           Approuver
         </Button>
-        <Button 
+        <Button
           variant="outline"
           className="bg-red-50 text-red-700 border-red-300 hover:bg-red-100"
           onClick={() => {
@@ -241,7 +241,7 @@ const LoanDetails = () => {
         >
           Rejeter
         </Button>
-        <Button 
+        <Button
           variant="outline"
           onClick={() => {
             setAssignedTo(loan.assigned_to || '');
@@ -250,7 +250,7 @@ const LoanDetails = () => {
         >
           {loan.assigned_to ? 'Réassigner' : 'Assigner'}
         </Button>
-        <Button 
+        <Button
           variant="outline"
           onClick={() => {
             setNoteText('');
@@ -260,7 +260,7 @@ const LoanDetails = () => {
           Ajouter une note
         </Button>
       </div>
-      
+
       {/* Informations de la demande */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
@@ -270,41 +270,41 @@ const LoanDetails = () => {
                 <p className="text-sm font-medium text-gray-500">Montant</p>
                 <p className="mt-1 text-lg font-semibold">{formatCurrency(loan.amount)}</p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Statut</p>
                 <p className="mt-1">
                   <StatusBadge status={loan.status} />
                 </p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Objet du prêt</p>
                 <p className="mt-1">{loan.purpose}</p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Date de soumission</p>
                 <p className="mt-1">{formatDate(loan.created_at)}</p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Durée</p>
                 <p className="mt-1">{loan.duration_months} mois</p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Revenus mensuels</p>
                 <p className="mt-1">{formatCurrency(loan.monthly_income)}</p>
               </div>
             </div>
-            
+
             <div className="mt-6">
               <p className="text-sm font-medium text-gray-500">Description</p>
               <p className="mt-1 whitespace-pre-wrap">{loan.description}</p>
             </div>
           </Card>
-          
+
           {/* Documents */}
           <Card title="Documents">
             {documents && documents.length > 0 ? (
@@ -356,9 +356,9 @@ const LoanDetails = () => {
                           {formatDate(doc.uploaded_at)}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <a 
-                            href={doc.file_url} 
-                            target="_blank" 
+                          <a
+                            href={doc.file_url}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-primary hover:text-primary-dark"
                           >
@@ -376,13 +376,13 @@ const LoanDetails = () => {
               </div>
             )}
           </Card>
-          
+
           {/* Notes */}
-          <Card 
-            title="Notes" 
+          <Card
+            title="Notes"
             headerAction={
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => {
                   setNoteText('');
@@ -426,7 +426,7 @@ const LoanDetails = () => {
             )}
           </Card>
         </div>
-        
+
         {/* Informations Client */}
         <div className="space-y-6">
           <Card title="Informations du client">
@@ -439,21 +439,21 @@ const LoanDetails = () => {
                 <p className="text-sm text-gray-500">{loan.profiles.email}</p>
               </div>
             </div>
-            
+
             <div className="space-y-4">
               <div>
                 <p className="text-sm font-medium text-gray-500">Téléphone</p>
                 <p className="mt-1">{loan.profiles.phone || 'Non renseigné'}</p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Adresse</p>
                 <p className="mt-1">{loan.profiles.address || 'Non renseignée'}</p>
               </div>
-              
+
               <div className="pt-2">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="sm"
                   onClick={() => navigate(`/admin/clients/${loan.user_id}`)}
                   fullWidth
@@ -463,7 +463,7 @@ const LoanDetails = () => {
               </div>
             </div>
           </Card>
-          
+
           <Card title="Assignation">
             {loan.assigned_to ? (
               <div>
@@ -476,8 +476,8 @@ const LoanDetails = () => {
                     <p className="text-sm text-gray-500">{loan.assignee.email}</p>
                   </div>
                 </div>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="sm"
                   onClick={() => {
                     setAssignedTo(loan.assigned_to);
@@ -491,8 +491,8 @@ const LoanDetails = () => {
             ) : (
               <div>
                 <p className="text-center text-gray-500 mb-4">Cette demande n&apos;est pas encore assignée</p>
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
                   size="sm"
                   onClick={() => {
                     setAssignedTo('');
@@ -505,7 +505,7 @@ const LoanDetails = () => {
               </div>
             )}
           </Card>
-          
+
           <Card title="Résumé">
             <div className="space-y-4">
               <div>
@@ -514,17 +514,17 @@ const LoanDetails = () => {
                   <StatusBadge status={loan.status} />
                 </p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Montant demandé</p>
                 <p className="mt-1 font-semibold">{formatCurrency(loan.amount)}</p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Durée</p>
                 <p className="mt-1">{loan.duration_months} mois</p>
               </div>
-              
+
               <div>
                 <p className="text-sm font-medium text-gray-500">Documents</p>
                 <p className="mt-1">{documents ? documents.length : 0} fichiers</p>
@@ -533,7 +533,7 @@ const LoanDetails = () => {
           </Card>
         </div>
       </div>
-      
+
       {/* Modal de changement de statut */}
       <Modal
         isOpen={isStatusModalOpen}
@@ -567,7 +567,7 @@ const LoanDetails = () => {
           Cette action sera enregistrée et le client en sera informé.
         </p>
       </Modal>
-      
+
       {/* Modal d'assignation */}
       <Modal
         isOpen={isAssignModalOpen}
@@ -621,7 +621,7 @@ const LoanDetails = () => {
           </label>
         </div>
       </Modal>
-      
+
       {/* Modal d'ajout de note */}
       <Modal
         isOpen={isNoteModalOpen}

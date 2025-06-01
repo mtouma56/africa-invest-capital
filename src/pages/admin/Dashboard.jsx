@@ -28,7 +28,7 @@ const statusIcons = {
 };
 const AdminDashboard = () => {
   const { user } = useAuth();
-  
+
   const [stats, setStats] = useState({
     totalLoans: 0,
     totalClients: 0,
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
     approvedLoans: 0,
     totalAmount: 0
   });
-  
+
   const [recentLoans, setRecentLoans] = useState([]);
   const [recentClients, setRecentClients] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,13 +45,13 @@ const AdminDashboard = () => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
-        
+
         // Récupération des statistiques
         const [
-          loansResult, 
-          clientsResult, 
-          pendingLoansResult, 
-          approvedLoansResult, 
+          loansResult,
+          clientsResult,
+          pendingLoansResult,
+          approvedLoansResult,
           totalAmountResult,
           recentLoansResult,
           recentClientsResult
@@ -60,31 +60,31 @@ const AdminDashboard = () => {
           supabase
           .from('loan_requests')
             .select('id', { count: 'exact', head: true }),
-          
+
           // Nombre total de clients
           supabase
             .from('profiles')
             .select('id', { count: 'exact', head: true })
             .eq('role', 'client'),
-          
+
           // Nombre de prêts en attente
           supabase
           .from('loan_requests')
             .select('id', { count: 'exact', head: true })
             .eq('status', 'pending'),
-          
+
           // Nombre de prêts approuvés
           supabase
             .from('loans')
             .select('id', { count: 'exact', head: true })
             .eq('status', 'approved'),
-          
+
           // Montant total des prêts approuvés
           supabase
           .from('loan_requests')
             .select('amount')
             .eq('status', 'approved'),
-          
+
           // Prêts récents
           supabase
           .from('loan_requests')
@@ -98,7 +98,7 @@ const AdminDashboard = () => {
             `)
             .order('created_at', { ascending: false })
             .limit(5),
-          
+
           // Clients récents
           supabase
             .from('profiles')
@@ -107,11 +107,11 @@ const AdminDashboard = () => {
             .order('created_at', { ascending: false })
             .limit(5)
         ]);
-        
+
         // Calcul du montant total
-        const totalAmount = totalAmountResult.data ? 
+        const totalAmount = totalAmountResult.data ?
           totalAmountResult.data.reduce((sum, loan) => sum + loan.amount, 0) : 0;
-        
+
         setStats({
           totalLoans: loansResult.count || 0,
           totalClients: clientsResult.count || 0,
@@ -119,17 +119,17 @@ const AdminDashboard = () => {
           approvedLoans: approvedLoansResult.count || 0,
           totalAmount
         });
-        
+
         setRecentLoans(recentLoansResult.data || []);
         setRecentClients(recentClientsResult.data || []);
-        
+
       } catch (error) {
         console.error('Erreur lors du chargement des données du dashboard:', error);
       } finally {
         setLoading(false);
       }
     };
-    
+
     if (user) {
       fetchDashboardData();
     }
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Total Loans */}
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
@@ -190,7 +190,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Pending Loans */}
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
@@ -214,7 +214,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Total Amount */}
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
@@ -225,8 +225,8 @@ const AdminDashboard = () => {
               <div className="ml-5">
                 <p className="text-sm font-medium text-gray-500 truncate">Montant total</p>
                 <p className="mt-1 text-3xl font-semibold text-gray-900">
-                  {loading 
-                    ? '...' 
+                  {loading
+                    ? '...'
                     : new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' })
                         .format(stats.totalAmount)
                         .replace(/\s/g, ' ')
@@ -276,11 +276,11 @@ const AdminDashboard = () => {
               <tbody className="divide-y divide-gray-200 bg-white">
                 {recentLoans.map((loan) => {
                   const StatusIcon = statusIcons[loan.status];
-                  const clientName = loan.profiles ? 
-                    `${loan.profiles.first_name || ''} ${loan.profiles.last_name || ''}`.trim() || 
-                    loan.profiles.email : 
+                  const clientName = loan.profiles ?
+                    `${loan.profiles.first_name || ''} ${loan.profiles.last_name || ''}`.trim() ||
+                    loan.profiles.email :
                     'Client inconnu';
-                    
+
                   return (
                     <tr key={loan.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
@@ -364,7 +364,7 @@ const AdminDashboard = () => {
               <tbody className="divide-y divide-gray-200 bg-white">
                 {recentClients.map((client) => {
                   const clientName = `${client.first_name || ''} ${client.last_name || ''}`.trim() || 'N/A';
-                  
+
                   return (
                     <tr key={client.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900">
