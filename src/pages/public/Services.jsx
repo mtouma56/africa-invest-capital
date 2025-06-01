@@ -111,7 +111,7 @@ const Services = () => {
                 <div className="mt-5">
                   <h3 className="text-lg uppercase tracking-wide font-bold text-or">Prêts projet</h3>
                   <p className="mt-2 text-base text-or-light drop-shadow">
-                    Financez vos projets personnels avec nos prêts projets : rénovation, éducation, mariage, voyage et autres besoins spécifiques.
+                    Financez vos projets personnels avec nos prêts projets&nbsp;: rénovation, éducation, mariage, voyage et autres besoins spécifiques.
                   </p>
                   <div className="mt-4">
                     <Link to="/auth/login" className="text-or hover:text-or-light font-bold hover:underline transition underline">
@@ -166,7 +166,7 @@ const Services = () => {
                 <div className="mt-5 text-center">
                   <h3 className="text-lg uppercase tracking-wide font-bold text-or">Planification financière</h3>
                   <p className="mt-2 text-base text-or-light drop-shadow">
-                    Élaborez un plan financier sur mesure pour atteindre vos objectifs personnels et professionnels.
+                    &Eacute;laborez un plan financier sur mesure pour atteindre vos objectifs personnels et professionnels.
                   </p>
                 </div>
               </div>
@@ -181,7 +181,7 @@ const Services = () => {
                 <div className="mt-5 text-center">
                   <h3 className="text-lg uppercase tracking-wide font-bold text-or">Accompagnement entreprises</h3>
                   <p className="mt-2 text-base text-or-light drop-shadow">
-                    Solutions sur mesure pour les entreprises : financement, développement et stratégie financière.
+                    Solutions sur mesure pour les entreprises&nbsp;: financement, développement et stratégie financière.
                   </p>
                 </div>
               </div>
@@ -194,7 +194,7 @@ const Services = () => {
       <div className="bg-or">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
           <h2 className="text-3xl font-extrabold tracking-tight text-noir sm:text-4xl">
-            <span className="block">Prêt à concrétiser vos projets ?</span>
+            <span className="block">Prêt à concrétiser vos projets&nbsp;?</span>
             <span className="block text-or-light">Créez un compte ou contactez-nous dès aujourd&apos;hui.</span>
           </h2>
           <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">

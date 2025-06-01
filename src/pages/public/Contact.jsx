@@ -35,8 +35,8 @@ const Contact = () => {
       reset();
 
     } catch (error) {
-      showError("Une erreur s'est produite. Veuillez réessayer.");
-      console.error('Erreur lors de l\'envoi du message:', error);
+      showError("Une erreur s&apos;est produite. Veuillez réessayer.");
+      console.error('Erreur lors de l&apos;envoi du message:', error);
     } finally {
       setLoading(false);
     }

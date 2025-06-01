@@ -49,7 +49,7 @@ export default function Home() {
         <h2 className="text-or text-3xl font-bold text-center mb-12">Pourquoi choisir Africa Invest Capital ?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           <div className="bg-[#232323] rounded-lg p-6 hover:scale-105 hover:shadow-[0_0_20px_#FFD70033] transition">
-            <h3 className="text-or font-bold mb-2">Expertise locale & internationale</h3>
+            <h3 className="text-or font-bold mb-2">Expertise locale &amp; internationale</h3>
             <p className="text-or-light">
               Une équipe expérimentée, un accompagnement sur-mesure pour chaque projet en Côte d&apos;Ivoire, en Afrique et à l&apos;international.
             </p>

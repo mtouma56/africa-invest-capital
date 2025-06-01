@@ -19,7 +19,7 @@ export default function About() {
       {/* Mission / Valeurs / Engagements */}
       <section className="max-w-4xl mx-auto mb-10">
         <h2 className="text-or font-bold text-2xl mb-4 flex items-center gap-2">
-        <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">flag</span>
+          <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">flag</span>
           Notre mission
         </h2>
         <p className="text-or-light text-lg mb-4 leading-relaxed">
@@ -29,27 +29,27 @@ export default function About() {
         </p>
         <div className="border-t border-[#232323] my-8"></div>
         <h2 className="text-or font-bold text-2xl mb-4 mt-8 flex items-center gap-2">
-        <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">favorite</span>
+          <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">favorite</span>
           Nos valeurs
         </h2>
         <ul className="list-disc list-inside text-or-light text-lg space-y-2">
           <li>
-            Excellence & intégrité : Engagement total pour la qualité et l&apos;éthique.
+            Excellence &amp; intégrité : Engagement total pour la qualité et l&apos;éthique.
           </li>
           <li>
-            Confiance & transparence : Relations fondées sur la clarté et le respect.
+            Confiance &amp; transparence : Relations fondées sur la clarté et le respect.
           </li>
           <li>
-            Accompagnement premium & sur-mesure : Solutions adaptées à chaque ambition.
+            Accompagnement premium &amp; sur-mesure : Solutions adaptées à chaque ambition.
           </li>
           <li>
-            Innovation & performance durable : Progresser tout en garantissant un impact positif et pérenne.
+            Innovation &amp; performance durable : Progresser tout en garantissant un impact positif et pérenne.
           </li>
         </ul>
 
         <div className="border-t border-[#232323] my-8"></div>
         <h2 className="text-or font-bold text-2xl mb-4 mt-8 flex items-center gap-2">
-        <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">verified_user</span>
+          <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">verified_user</span>
           Engagements responsables
         </h2>
         <ul className="list-disc list-inside text-or-light text-lg space-y-2">
@@ -68,7 +68,7 @@ export default function About() {
       {/* Timeline : Notre Histoire */}
       <section className="max-w-4xl mx-auto mb-16">
         <h2 className="text-or font-bold text-2xl mb-6 flex items-center gap-2">
-        <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">timeline</span>
+          <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">timeline</span>
           Notre histoire
         </h2>
         <ul className="space-y-2 text-or-light text-lg">
@@ -83,33 +83,33 @@ export default function About() {
       {/* Notre Différence (USP) */}
       <section className="max-w-4xl mx-auto mb-16">
         <h2 className="text-or font-bold text-2xl mb-6 flex items-center gap-2">
-        <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">stars</span>
+          <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">stars</span>
           Notre différence
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="flex items-start gap-4">
-          <span className="material-icons text-or text-3xl" aria-hidden="true">rocket_launch</span>
+            <span className="material-icons text-or text-3xl" aria-hidden="true">rocket_launch</span>
             <div>
               <div className="font-bold text-or">Réactivité</div>
               <div className="text-or-light">Décisions en moins de 48h pour les projets qualifiés.</div>
             </div>
           </div>
           <div className="flex items-start gap-4">
-          <span className="material-icons text-or text-3xl" aria-hidden="true">person_search</span>
+            <span className="material-icons text-or text-3xl" aria-hidden="true">person_search</span>
             <div>
               <div className="font-bold text-or">Accompagnement sur-mesure</div>
               <div className="text-or-light">Un expert dédié pour chaque client.</div>
             </div>
           </div>
           <div className="flex items-start gap-4">
-          <span className="material-icons text-or text-3xl" aria-hidden="true">lock</span>
+            <span className="material-icons text-or text-3xl" aria-hidden="true">lock</span>
             <div>
-              <div className="font-bold text-or">Sécurité & Confidentialité</div>
+              <div className="font-bold text-or">Sécurité &amp; Confidentialité</div>
               <div className="text-or-light">Conformité bancaire internationale.</div>
             </div>
           </div>
           <div className="flex items-start gap-4">
-          <span className="material-icons text-or text-3xl" aria-hidden="true">eco</span>
+            <span className="material-icons text-or text-3xl" aria-hidden="true">eco</span>
             <div>
               <div className="font-bold text-or">Impact positif</div>
               <div className="text-or-light">Stratégie d&apos;investissement durable.</div>
@@ -133,7 +133,7 @@ export default function About() {
       {/* Equipe */}
       <section className="max-w-4xl mx-auto mb-16">
         <h2 className="text-or font-bold text-2xl mb-6 flex items-center gap-2">
-        <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">groups</span>
+          <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">groups</span>
           Équipe dirigeante
         </h2>
         <p className="text-or-light mb-4 text-lg">Des experts reconnus à votre service.</p>
@@ -195,7 +195,7 @@ export default function About() {
       {/* Chiffres clés */}
       <section className="max-w-4xl mx-auto mb-20">
         <h2 className="text-or font-bold text-2xl mb-6 flex items-center gap-2">
-        <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">bar_chart</span>
+          <span className="material-icons text-or-light text-xl align-middle" aria-hidden="true">bar_chart</span>
           Chiffres clés
         </h2>
         <div className="flex flex-col sm:grid sm:grid-cols-4 gap-8 justify-center">
