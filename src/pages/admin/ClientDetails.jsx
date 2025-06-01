@@ -6,7 +6,6 @@ import Card from '../../components/common/Card';
 import Button from '../../components/common/Button';
 import Loader from '../../components/common/Loader';
 import { formatCurrency, formatDate } from '../../utils/formatters';
-import { loanStatusMap } from '../../utils/constants';
 import StatusBadge from '../../components/common/StatusBadge';
 
 const ClientDetails = () => {

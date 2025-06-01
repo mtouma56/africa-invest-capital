@@ -6,7 +6,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   
   // Fonctions simplifiées
-  const login = async (email, password) => {
+  const login = async (email, _password) => {
+    void _password;
     setUser({ id: '1', email, profile: { role: 'client' } });
     return { data: { user: { id: '1', email } }, error: null };
   };

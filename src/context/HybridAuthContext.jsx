@@ -1,12 +1,11 @@
 import React, { createContext, useState, useCallback, useEffect } from 'react';
-import { supabase } from '../config/supabaseClient';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   // États
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false); // Commencez avec loading=false
+  const [loading] = useState(false); // Commencez avec loading=false
 
   // Version simplifiée de checkUser qui évite les appels à Supabase
   const checkUser = useCallback(() => {
@@ -15,7 +14,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Fonctions mockées
-  const login = async (email, password) => {
+  const login = async (email, _password) => {
+    void _password;
     console.log("Login avec:", email);
     setUser({ email, profile: { role: email.includes('admin') ? 'admin' : 'client' } });
     return { data: {}, error: null };
@@ -26,7 +26,8 @@ export const AuthProvider = ({ children }) => {
     return { error: null };
   };
 
-  const register = async (email, password, userDetails) => {
+  const register = async (email, _password, userDetails) => {
+    void _password;
     console.log("Register avec:", email, userDetails);
     setUser({ 
       email, 

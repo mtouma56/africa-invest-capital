@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export const AppRoutesSimple = () => {
-  const { user, loading, isAdmin } = useAuth();
+  const { user, loading } = useAuth();
   
   // Ajoutons une condition simple basée sur l'état de chargement
   if (loading) {

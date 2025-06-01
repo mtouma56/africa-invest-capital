@@ -10,7 +10,6 @@ import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon';
 import ClockIcon from '@heroicons/react/24/outline/ClockIcon';
 import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon'; 
 import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
-import ArrowTrendingUpIcon from '@heroicons/react/24/outline/ArrowTrendingUpIcon';
 
 const statusColors = {
   pending: 'bg-yellow-100 text-yellow-800',

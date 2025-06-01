@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
     checkUser();
     
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      (event) => {
         if (event === 'SIGNED_OUT') {
           setUser(null);
         } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
@@ -93,7 +93,10 @@ export const AuthProvider = ({ children }) => {
         return { error };
       }
     },
-    register: async (email, password, userDetails) => {
+    register: async (email, _password, _userDetails) => {
+      void email;
+      void _password;
+      void _userDetails;
       // Ajoutez votre code de register ici
       return { data: {}, error: null };
     },
