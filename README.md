@@ -24,7 +24,7 @@ Application web complète pour Africa Invest Capital, une société financière 
 - Attribution des demandes aux collaborateurs
 
 ## 🛠️ Technologies utilisées
-- **Frontend**: React avec Vite
+- **Frontend**: React avec Next.js
 - **UI**: Tailwind CSS
 - **Backend**: Supabase
 - **Authentification**: Supabase Auth
@@ -44,6 +44,7 @@ Application web complète pour Africa Invest Capital, une société financière 
 git clone https://github.com/votre-username/africa-invest-capital.git
 cd africa-invest-capital
 npm install
+npm run dev
 # ⚠️ Ne pas ajouter manuellement la dépendance `signal-exit` dans `package.json`. Elle est installée automatiquement par les outils qui en ont besoin et son ajout explicite provoque des conflits de build, notamment sur Vercel.
 
 # Copier les fichiers d'exemple et renseigner vos variables
@@ -69,8 +70,8 @@ cp .env.local.example .env.local
 
 ## Preview deployments
 
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 
 After saving these variables, redeploy your preview branch from the Vercel dashboard. Once the deployment is finished, registration should succeed without the "Server misconfigured" error.
