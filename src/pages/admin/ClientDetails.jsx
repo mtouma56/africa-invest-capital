@@ -272,7 +272,7 @@ const ClientDetails = () => {
               </div>
               
               <div>
-                <p className="text-sm font-medium text-gray-500">Date d'inscription</p>
+                <p className="text-sm font-medium text-gray-500">Date d&apos;inscription</p>
                 <p className="mt-1">{formatDate(client.created_at)}</p>
               </div>
             </div>

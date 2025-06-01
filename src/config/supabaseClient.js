@@ -1,11 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Variables d'environnement Supabase
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Utilisation des variables NEXT_PUBLIC côté client uniquement
+let supabase = null;
 
-// Création du client Supabase
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+if (typeof window !== 'undefined') {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+}
 
-// Export par défaut également
+export { supabase };
 export default supabase;

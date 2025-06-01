@@ -5,6 +5,9 @@ import { useAuth } from '../../hooks/useAuth';
 
 // Importation directe des icônes
 import { loanStatusMap, loanTypeLabels } from '../../utils/constants';
+import ClockIcon from '@heroicons/react/24/outline/ClockIcon';
+import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon';
+import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
 import StatusBadge from '../../components/common/StatusBadge';
 
 const statusColors = Object.fromEntries(
