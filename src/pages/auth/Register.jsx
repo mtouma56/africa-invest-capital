@@ -34,7 +34,7 @@ const Register = () => {
       if (error) {
         showError(error.message || "Erreur lors de la création du compte");
       } else {
-        showSuccess('Compte créé avec succès !');
+        showSuccess('Compte créé avec succès !');
         // Connexion automatique puis redirection vers le tableau de bord
         await login(email, password);
         navigate('/client');
