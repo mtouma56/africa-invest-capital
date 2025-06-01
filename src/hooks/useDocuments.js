@@ -10,7 +10,7 @@ export const useDocuments = () => {
     try {
       setUploading(true);
       setProgress(0);
-      
+
       if (!file) {
         throw new Error('Aucun fichier fourni');
       }
@@ -82,10 +82,10 @@ export const useDocuments = () => {
     try {
       setUploading(true);
       setProgress(0);
-      
+
       // Convertir le Blob en File
       const file = new File([imageBlob], `camera-capture-${Date.now()}.jpg`, { type: 'image/jpeg' });
-      
+
       return await uploadDocument(file, userId, loanRequestId, category);
     } catch (error) {
       return { data: null, error: error.message || 'Erreur lors de la capture caméra' };
