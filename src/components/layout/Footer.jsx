@@ -22,7 +22,7 @@ const Footer = () => {
               <span className="ml-2 text-lg font-bold text-primary group-hover:underline">Africa Invest Capital</span>
             </a>
             <p className="mt-2 text-noir opacity-90">
-              Solutions financières innovantes pour l'Afrique
+              Solutions financières innovantes pour l&apos;Afrique
             </p>
           </div>
           
@@ -68,7 +68,7 @@ const Footer = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span className="font-bold">123 Rue Principale, Abidjan, Côte d'Ivoire</span>
+                <span className="font-bold">123 Rue Principale, Abidjan, Côte d&apos;Ivoire</span>
               </li>
               <li className="text-noir flex items-center font-bold hover:text-or transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">

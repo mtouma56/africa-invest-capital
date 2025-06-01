@@ -135,7 +135,7 @@ const Services = () => {
               Des experts à votre service
             </p>
             <p className="mt-4 max-w-2xl text-xl text-or-light lg:mx-auto">
-              Notre équipe d'experts est là pour vous accompagner dans tous vos projets financiers.
+              Notre équipe d&apos;experts est là pour vous accompagner dans tous vos projets financiers.
             </p>
           </div>
 
@@ -151,7 +151,7 @@ const Services = () => {
                 <div className="mt-5 text-center">
                   <h3 className="text-lg uppercase tracking-wide font-bold text-or">Conseil en investissement</h3>
                   <p className="mt-2 text-base text-or-light drop-shadow">
-                    Nos experts vous guident dans vos choix d'investissement pour optimiser votre patrimoine.
+                    Nos experts vous guident dans vos choix d&apos;investissement pour optimiser votre patrimoine.
                   </p>
                 </div>
               </div>

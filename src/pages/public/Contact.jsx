@@ -130,7 +130,7 @@ const Contact = () => {
                   <p className="text-base text-or-light">
                     123 Rue Principale<br />
                     Plateau, Abidjan<br />
-                    Côte d'Ivoire
+                    Côte d&apos;Ivoire
                   </p>
                 </div>
                 <div className="mt-6">
