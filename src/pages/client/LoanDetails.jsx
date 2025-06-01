@@ -10,9 +10,6 @@ import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon';
 import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
 import StatusBadge from '../../components/common/StatusBadge';
 
-const statusColors = Object.fromEntries(
-  Object.entries(loanStatusMap).map(([k, v]) => [k, `${v.bg} ${v.textColor}`])
-);
 const statusIcons = Object.fromEntries(
   Object.entries(loanStatusMap).map(([k, v]) => [k, v.icon])
 );
@@ -147,8 +144,6 @@ const LoanDetails = () => {
   const formattedAmount = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'XOF' }).format(loan.amount);
   const formattedDate = new Date(loan.created_at).toLocaleDateString('fr-FR');
   const loanTypeLabel = loanTypeLabels[loan.loan_type] || loan.loan_type;
-  const statusLabel = statusLabels[loan.status] || loan.status;
-  const statusColor = statusColors[loan.status] || 'bg-gray-100 text-gray-800';
   
   return (
     <div className="py-6">

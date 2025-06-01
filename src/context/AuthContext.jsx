@@ -136,7 +136,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     checkUser();
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      (event) => {
         if (event === 'SIGNED_OUT') {
           setUser(null);
         } else if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {

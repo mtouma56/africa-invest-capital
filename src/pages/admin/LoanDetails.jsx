@@ -73,7 +73,7 @@ const LoanDetails = () => {
       setIsSubmittingStatus(true);
       setError('');
       
-      const { data, error } = await updateLoanStatus(loanId, selectedStatus);
+      const { error } = await updateLoanStatus(loanId, selectedStatus);
       
       if (error) {
         setError(`Erreur lors de la mise à jour du statut: ${error}`);
@@ -97,7 +97,7 @@ const LoanDetails = () => {
       setIsSubmittingAssign(true);
       setError('');
       
-      const { data, error } = await assignLoan(loanId, assignedTo || null);
+      const { error } = await assignLoan(loanId, assignedTo || null);
       
       if (error) {
         setError(`Erreur lors de l'attribution: ${error}`);
@@ -131,7 +131,7 @@ const LoanDetails = () => {
       setIsSubmittingNote(true);
       setError('');
       
-      const { data, error } = await addNote(loanId, noteText, user.id);
+      const { error } = await addNote(loanId, noteText, user.id);
       
       if (error) {
         setError(`Erreur lors de l'ajout de la note: ${error}`);
