@@ -1,11 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
-import HomeIcon from '@heroicons/react/24/outline/HomeIcon';
-import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon';
-import UserIcon from '@heroicons/react/24/outline/UserIcon';
-import UsersIcon from '@heroicons/react/24/outline/UsersIcon';
-import CurrencyDollarIcon from '@heroicons/react/24/outline/CurrencyDollarIcon';
-import Cog6ToothIcon from '@heroicons/react/24/outline/Cog6ToothIcon';
+import {
+  XMarkIcon,
+  HomeIcon,
+  DocumentTextIcon,
+  UserIcon,
+  UsersIcon,
+  CurrencyDollarIcon,
+  Cog6ToothIcon,
+} from '@heroicons/react/24/outline';
 
 const Sidebar = ({ isAdmin, isOpen, toggleSidebar }) => {
   const location = useLocation();

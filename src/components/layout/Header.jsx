@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon';
-import UserCircleIcon from '@heroicons/react/24/outline/UserCircleIcon';
-import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
+import {
+  Bars3Icon,
+  UserCircleIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
 
 const Header = ({ isAdmin, toggleSidebar, user }) => {
   const { logout } = useAuth();
