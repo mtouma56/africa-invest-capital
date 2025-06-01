@@ -21,7 +21,7 @@ const Clients = () => {
     const fetchClients = async () => {
       try {
         setLoading(true);
-        
+
         const { data, error } = await supabase
           .from('profiles')
           .select(`
@@ -30,14 +30,12 @@ const Clients = () => {
           `)
           .eq('role', 'client')
           .order('created_at', { ascending: false });
-        
-        if (error) {
-          throw error;
-        }
-        
+
+        if (error) throw error;
+
         setClients(data || []);
         setFilteredClients(data || []);
-        
+
       } catch (err) {
         console.error('Erreur lors du chargement des clients:', err);
         setError(err.message);
@@ -45,13 +43,13 @@ const Clients = () => {
         setLoading(false);
       }
     };
-    
+
     fetchClients();
   }, []);
-  
+
   useEffect(() => {
     if (searchTerm) {
-      const filtered = clients.filter(client => 
+      const filtered = clients.filter(client =>
         client.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client.last_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -76,7 +74,7 @@ const Clients = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-900">Clients</h1>
       </div>
-      
+
       {/* Filtre */}
       <Card>
         <Input
@@ -86,7 +84,7 @@ const Clients = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </Card>
-      
+
       {/* Liste des clients */}
       <Card title={`Clients (${filteredClients.length})`}>
         {filteredClients.length > 0 ? (

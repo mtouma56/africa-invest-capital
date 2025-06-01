@@ -8,7 +8,7 @@ import UsersIcon from '@heroicons/react/24/outline/UsersIcon';
 import CurrencyDollarIcon from '@heroicons/react/24/outline/CurrencyDollarIcon';
 import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon';
 import ClockIcon from '@heroicons/react/24/outline/ClockIcon';
-import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon'; 
+import CheckCircleIcon from '@heroicons/react/24/outline/CheckCircleIcon';
 import ExclamationCircleIcon from '@heroicons/react/24/outline/ExclamationCircleIcon';
 
 const statusColors = {
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
     <div className="py-6">
       <h1 className="text-2xl font-semibold text-gray-900">Tableau de bord administrateur</h1>
       <p className="mt-1 text-sm text-gray-500">
-        Vue d&apos;ensemble des activités et statistiques.
+        Vue d&apos;ensemble des activit&eacute;s et statistiques.
       </p>
 
       {/* Stats cards */}
@@ -287,11 +287,11 @@ const AdminDashboard = () => {
                         </Link>
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {loan.loan_type === 'business' && 'Prêt entreprise'}
-                        {loan.loan_type === 'mortgage' && 'Prêt immobilier'}
-                        {loan.loan_type === 'personal' && 'Prêt personnel'}
-                        {loan.loan_type === 'education' && 'Prêt éducation'}
-                        {loan.loan_type === 'auto' && 'Prêt automobile'}
+                        {loan.loan_type === 'business' && 'Pr&ecirc;t entreprise'}
+                        {loan.loan_type === 'mortgage' && 'Pr&ecirc;t immobilier'}
+                        {loan.loan_type === 'personal' && 'Pr&ecirc;t personnel'}
+                        {loan.loan_type === 'education' && 'Pr&ecirc;t &eacute;ducation'}
+                        {loan.loan_type === 'auto' && 'Pr&ecirc;t automobile'}
                         {!['business', 'mortgage', 'personal', 'education', 'auto'].includes(loan.loan_type) && loan.loan_type}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -304,9 +304,9 @@ const AdminDashboard = () => {
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[loan.status] || 'bg-gray-100 text-gray-800'}`}>
                           {StatusIcon && <StatusIcon className="mr-1.5 h-4 w-4" />}
                           {loan.status === 'pending' && 'En attente'}
-                          {loan.status === 'approved' && 'Approuvé'}
-                          {loan.status === 'rejected' && 'Refusé'}
-                          {loan.status === 'completed' && 'Complété'}
+                          {loan.status === 'approved' && 'Approuv&eacute;'}
+                          {loan.status === 'rejected' && 'Refus&eacute;'}
+                          {loan.status === 'completed' && 'Compl&eacute;t&eacute;'}
                           {!['pending', 'approved', 'rejected', 'completed'].includes(loan.status) && loan.status}
                         </span>
                       </td>
@@ -349,7 +349,7 @@ const AdminDashboard = () => {
                     Email
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Téléphone
+                    T&eacute;l&eacute;phone
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Date d&apos;inscription
@@ -434,7 +434,7 @@ const AdminDashboard = () => {
               <div className="ml-4">
                 <h3 className="text-lg font-medium text-gray-900">Gestion des clients</h3>
                 <p className="text-sm text-gray-500">
-                  Consulter et gérer les profils clients.
+                  Consulter et g&eacute;rer les profils clients.
                 </p>
               </div>
             </div>
@@ -454,7 +454,7 @@ const AdminDashboard = () => {
               <div className="ml-4">
                 <h3 className="text-lg font-medium text-gray-900">Paramètres</h3>
                 <p className="text-sm text-gray-500">
-                  Configurer les paramètres de l&apos;application.
+                  Configurer les param&egrave;tres de l&apos;application.
                 </p>
               </div>
             </div>
