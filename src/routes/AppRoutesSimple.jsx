@@ -15,7 +15,7 @@ export const AppRoutesSimple = () => {
         path="/" 
         element={
           <div>
-            <h1>Page d'accueil</h1>
+            <h1>Page d&apos;accueil</h1>
             <p>Version simplifiée sans composants externes</p>
             {user ? <p>Bienvenue, utilisateur connecté!</p> : <p>Bienvenue, visiteur!</p>}
           </div>

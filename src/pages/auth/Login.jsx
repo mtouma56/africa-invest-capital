@@ -55,7 +55,7 @@ const Login = () => {
             className="font-medium text-[#E6C97A] hover:text-[#D4AF37]" 
             aria-label="Créer un compte"
           >
-            créez un compte si vous n'en avez pas encore
+            créez un compte si vous n&apos;en avez pas encore
           </Link>
         </p>
       </div>
