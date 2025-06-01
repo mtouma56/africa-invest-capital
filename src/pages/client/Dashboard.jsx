@@ -186,10 +186,10 @@ const Dashboard = () => {
             </table>
           ) : (
             <EmptyState
-              message="Vous n&apos;avez encore aucune demande de prêt."
+              message="Vous n&apos;avez encore aucune demande de pr&ecirc;t."
               action={
                 <Link to="/client/demande-pret" className="mt-2 inline-flex text-primary hover:text-primary-dark">
-                  Faire votre première demande
+                  Faire votre premi&egrave;re demande
                 </Link>
               }
             />

@@ -151,7 +151,7 @@ const Documents = () => {
     <div className="py-6">
       <h1 className="text-2xl font-semibold text-gray-900">Mes documents</h1>
       <p className="mt-1 text-sm text-gray-500">
-        Téléchargez et gérez vos documents importants.
+        T&eacute;l&eacute;chargez et g&eacute;rez vos documents importants.
       </p>
 
       <div className="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
@@ -206,15 +206,15 @@ const Documents = () => {
                     </svg>
                     <div className="flex text-sm text-gray-600">
                       <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary-dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary">
-                        <span>Télécharger un fichier</span>
+                        <span>T&eacute;l&eacute;charger un fichier</span>
                         <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleFileChange} />
                       </label>
-                      <p className="pl-1">ou glisser-déposer</p>
+                      <p className="pl-1">ou glisser-d&eacute;poser</p>
                     </div>
-                    <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu&apos;à 10MB</p>
+                    <p className="text-xs text-gray-500">PNG, JPG, PDF jusqu&apos;&agrave; 10MB</p>
                     {file && (
                       <p className="text-sm text-primary mt-2">
-                        Fichier sélectionné: {file.name}
+                        Fichier s&eacute;lectionn&eacute;: {file.name}
                       </p>
                     )}
                   </div>
@@ -227,7 +227,7 @@ const Documents = () => {
                 disabled={uploading}
                 className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary ${uploading ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
-                {uploading ? 'Téléchargement en cours...' : 'Télécharger'}
+                {uploading ? 'T&eacute;l&eacute;chargement en cours...' : 'T&eacute;l&eacute;charger'}
               </button>
             </div>
           </form>
@@ -235,7 +235,7 @@ const Documents = () => {
       </div>
 
       <div className="mt-8">
-        <h2 className="text-lg font-medium text-gray-900">Documents téléchargés</h2>
+        <h2 className="text-lg font-medium text-gray-900">Documents t&eacute;l&eacute;charg&eacute;s</h2>
         <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
           {loading ? (
             <div className="text-center py-6 bg-white">

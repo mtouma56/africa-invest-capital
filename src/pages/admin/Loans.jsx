@@ -286,7 +286,7 @@ const AdminLoans = () => {
                   Montant
                 </th>
                 <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                  Date de demande
+                  Date d&apos;inscription
                 </th>
                 <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                   Statut
@@ -361,7 +361,7 @@ const AdminLoans = () => {
           </table>
         ) : (
           <EmptyState
-            message="Aucune demande de prêt trouvée."
+            message="Aucune demande de pr&ecirc;t trouv&eacute;e."
             icon={ExclamationCircleIcon}
             action={
               (statusFilter || typeFilter || searchQuery) && (
@@ -369,7 +369,7 @@ const AdminLoans = () => {
                   onClick={resetFilters}
                   className="mt-4 text-primary hover:text-primary-dark text-sm font-medium"
                 >
-                  Réinitialiser les filtres
+                  R&eacute;initialiser les filtres
                 </button>
               )
             }

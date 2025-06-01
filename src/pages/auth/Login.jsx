@@ -31,7 +31,7 @@ const Login = () => {
       if (error.message === 'Failed to fetch') {
         showError('Erreur réseau. Veuillez vérifier votre connexion.');
       } else {
-        showError("Une erreur s'est produite");
+        showError("Une erreur s&apos;est produite");
       }
       console.error(error);
     } finally {

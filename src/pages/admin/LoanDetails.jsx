@@ -339,7 +339,7 @@ const LoanDetails = () => {
                           {doc.file_name}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {doc.category === 'identite' && 'Pièce d\'identité'}
+                          {doc.category === 'identite' && 'Pièce d&apos;identité'}
                           {doc.category === 'revenu' && 'Justificatif de revenu'}
                           {doc.category === 'banque' && 'Relevés bancaires'}
                           {doc.category === 'domicile' && 'Justificatif de domicile'}
