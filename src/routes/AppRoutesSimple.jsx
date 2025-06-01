@@ -15,23 +15,23 @@ export const AppRoutesSimple = () => {
 
   return (
     <Routes>
-      <Route 
-        path="/" 
+      <Route
+        path="/"
         element={
           <div>
             <h1>Page d&apos;accueil</h1>
             <p>Version simplifi&eacute;e sans composants externes</p>
             {user ? <p>Bienvenue, utilisateur connect&eacute;!</p> : <p>Bienvenue, visiteur!</p>}
           </div>
-        } 
+        }
       />
-      <Route 
-        path="*" 
+      <Route
+        path="*"
         element={
           <div>
             <h1>Page non trouv&eacute;e</h1>
           </div>
-        } 
+        }
       />
     </Routes>
   );

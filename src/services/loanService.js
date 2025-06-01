@@ -9,7 +9,7 @@ export const createLoanRequest = async (loanData, userId) => {
         user_id: userId
       })
       .select();
-    
+
     if (error) throw error;
     return data[0];
   } catch (error) {
@@ -25,7 +25,7 @@ export const getUserLoanRequests = async (userId) => {
       .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false });
-    
+
     if (error) throw error;
     return data;
   } catch (error) {
@@ -44,7 +44,7 @@ export const getLoanRequestById = async (id) => {
       `)
       .eq('id', id)
       .single();
-    
+
     if (error) throw error;
     return data;
   } catch (error) {
@@ -59,13 +59,13 @@ export const updateLoanRequestStatus = async (id, status, notes = null) => {
     if (notes !== null) {
       updateData.notes_admin = notes;
     }
-    
+
     const { data, error } = await supabase
       .from('loan_requests')
       .update(updateData)
       .eq('id', id)
       .select();
-    
+
     if (error) throw error;
     return data[0];
   } catch (error) {
@@ -81,11 +81,11 @@ export const assignLoanRequest = async (loanId, collaborateurId) => {
       .update({ collaborateur_id: collaborateurId })
       .eq('id', loanId)
       .select();
-    
+
     if (error) throw error;
     return data[0];
   } catch (error) {
-    console.error('Erreur lors de l\'assignation de la demande:', error);
+    console.error("Erreur lors de l'assignation de la demande:", error);
     throw error;
   }
 };
@@ -99,7 +99,7 @@ export const getAllLoanRequests = async () => {
         profiles:user_id (first_name, last_name, phone)
       `)
       .order('created_at', { ascending: false });
-    
+
     if (error) throw error;
     return data;
   } catch (error) {

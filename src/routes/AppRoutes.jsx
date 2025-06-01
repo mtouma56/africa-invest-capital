@@ -51,7 +51,8 @@ export const AppRoutes = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="a-propos" element={<About />} />
-          <Route path="services" element={<Services />} />          <Route path="contact" element={<Contact />} />
+          <Route path="services" element={<Services />} />
+          <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 
@@ -63,8 +64,8 @@ export const AppRoutes = () => {
         </Route>
 
         {/* Routes Client */}
-        <Route 
-          path="/client" 
+        <Route
+          path="/client"
           element={user && !isAdmin ? <ClientLayout /> : <Navigate to={user ? (isAdmin ? "/admin" : "/") : "/auth/login"} />}
         >
           <Route index element={<ClientDashboard />} />
@@ -75,8 +76,8 @@ export const AppRoutes = () => {
         </Route>
 
         {/* Routes Admin */}
-        <Route 
-          path="/admin" 
+        <Route
+          path="/admin"
           element={user && isAdmin ? <AdminLayout /> : <Navigate to={user ? (isAdmin ? "/" : "/client") : "/auth/login"} />}
         >
           <Route index element={<AdminDashboard />} />
