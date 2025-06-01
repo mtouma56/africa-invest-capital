@@ -25,7 +25,7 @@ export default function About() {
         <p className="text-or-light text-lg mb-4 leading-relaxed">
           Notre mission est d’accélérer la réussite de nos clients en Afrique et à l’international,
           grâce à des solutions financières innovantes, responsables et personnalisées.
-          Notre ambition : instaurer la confiance, bâtir des leaders économiques et ouvrir de nouveaux horizons.
+          Notre ambition : instaurer la confiance, bâtir des leaders économiques et ouvrir de nouveaux horizons.
         </p>
         <div className="border-t border-[#232323] my-8"></div>
         <h2 className="text-or font-bold text-2xl mb-4 mt-8 flex items-center gap-2">
@@ -226,7 +226,7 @@ export default function About() {
       {/* Call to action */}
       <div className="text-center mt-14">
         <div className="mb-4 text-xl font-semibold text-or-light">
-          Prêt à donner vie à vos ambitions ? Notre équipe d’experts vous accompagne à chaque étape.
+          Prêt à donner vie à vos ambitions ? Notre équipe d’experts vous accompagne à chaque étape.
         </div>
         <Link
           to="/contact"
