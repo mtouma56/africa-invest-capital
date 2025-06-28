@@ -84,3 +84,12 @@ Les routes seront alors disponibles sur [http://localhost:4000](http://localhost
 
 After saving these variables, redeploy your preview branch from the Vercel dashboard. Once the deployment is finished, registration should succeed without the "Server misconfigured" error.
 
+For production, add the variables via the Vercel CLI then trigger a redeploy:
+
+```bash
+vercel env add NEXT_PUBLIC_SUPABASE_URL production
+vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production
+vercel env add SUPABASE_SERVICE_ROLE_KEY production
+vercel redeploy
+```
+
